@@ -1,0 +1,105 @@
+body.single-reuniao,
+body.post-type-archive-reuniao {
+    background: var(--bg);
+}
+
+.page-reunioes {
+    background: var(--bg);
+}
+
+.pills-ano .btn {
+    border-radius:999px;
+    padding:.35rem .8rem;
+}
+
+.filter-bar {
+    position:sticky;
+    top:64px;
+    z-index:10;
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:.75rem;
+    box-shadow:0 8px 24px rgba(0,0,0,.05);
+}
+
+.filter-bar .form-control,
+.filter-bar .form-select {
+    border-radius:10px;
+}
+
+.filter-chips {
+    display:flex;
+    flex-wrap:wrap;
+    gap:.5rem;
+    margin-top:.5rem;
+}
+
+.filter-chip {
+    background:var(--bg);
+    border:1px solid var(--line);
+    border-radius:var(--radius-chip);
+    padding:.25rem .6rem;
+    font-size:.85rem;
+}
+
+.filter-chip a {
+    text-decoration:none;
+    color:var(--ink);
+}
+
+.tabbar {
+    background:linear-gradient(180deg,#f5f6ff,transparent);
+    border-radius:12px;
+    padding:.5rem .75rem;
+}
+
+.tabbar .nav-link {
+    border-radius:10px;
+}
+
+
+.duration-badge {
+    position:absolute;
+    right:.5rem;
+    bottom:.5rem;
+    background:rgba(0,0,0,.7);
+    color:#fff;
+    font-size:.75rem;
+    padding:.2rem .4rem;
+    border-radius:.4rem;
+}
+
+.list-view .card {
+    display:flex;
+    gap:1rem;
+}
+
+@media (max-width: 768px){
+    .filter-bar { top:56px; }
+}
+
+.doc-row {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .6rem .8rem;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+}
+
+.doc-size {
+    margin-left: auto;
+    font-size: .8rem;
+    color: var(--muted);
+}
+
+.muted {
+    color: var(--muted);
+}
+
+.list-dot::before {
+    content: "\2022";
+    margin-right: .5rem;
+    color: #94a3b8;
+}

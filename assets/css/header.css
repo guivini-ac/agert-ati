@@ -1,0 +1,54 @@
+/* Barra */
+.site-header__bar {
+  background:#060312; /* tom quase preto */
+  color:#e8e9ee;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.site-header__bar .container {
+  max-width:1200px;
+  margin:0 auto;
+  padding:14px 20px; /* altura compacta */
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+}
+
+/* Marca (logo + textos) */
+.brand { display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit; }
+.brand__logo img { height:34px; width:auto; display:block; }
+.brand__logo--placeholder { width:34px; height:34px; border-radius:8px; background:#23243a; display:inline-block; }
+.brand__text { display:flex; flex-direction:column; line-height:1.1; }
+.brand__title { font-size:20px; font-weight:700; color:#ffffff; }
+.brand__tagline { font-size:12px; color:#bdc0cf; }
+
+/* Menu */
+.main-nav .menu { list-style:none; display:flex; gap:28px; margin:0; padding:0; align-items:center; }
+.main-nav .menu > li { position:relative; }
+.main-nav .menu a {
+  display:inline-flex; align-items:center;
+  padding:8px 14px;
+  border-radius:10px;
+  color:#e8e9ee;
+  text-decoration:none;
+  font-weight:500;
+  transition:background .2s ease, color .2s ease, box-shadow .2s ease;
+}
+.main-nav .menu a:hover,
+.main-nav .menu a:focus { color:#ffffff; background:rgba(255,255,255,.08); outline:none; }
+
+/* Estado ativo (WordPress aplica estas classes) */
+.main-nav .menu .current-menu-item > a,
+.main-nav .menu .current-menu-ancestor > a,
+.main-nav .menu a[aria-current="page"] {
+  background:#ffffff;
+  color:#0c0c19;
+  box-shadow:0 1px 0 rgba(0,0,0,.08);
+}
+
+/* Responsivo: empilhar em telas muito estreitas */
+@media (max-width: 720px) {
+  .site-header__bar .container { flex-wrap:wrap; gap:12px; }
+  .main-nav { width:100%; }
+  .main-nav .menu { gap:8px; flex-wrap:wrap; }
+}
