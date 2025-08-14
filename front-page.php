@@ -24,10 +24,6 @@ get_header(); ?>
                         <i class="bi bi-info-circle me-2"></i>
                         <?php _e('Conheça a AGERT', 'agert'); ?>
                     </a>
-                    <a href="<?php echo esc_url(get_post_type_archive_link('reuniao')); ?>" class="btn btn-outline-light btn-lg">
-                        <i class="bi bi-calendar-event me-2"></i>
-                        <?php _e('Ver Reuniões', 'agert'); ?>
-                    </a>
                 </div>
             </div>
             <div class="col-lg-4 text-center">

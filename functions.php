@@ -231,6 +231,19 @@ add_filter('page_template', function ($template) {
 });
 
 /**
+ * Corrigir estado ativo do menu para CPT reuniao
+ */
+add_filter('nav_menu_css_class', function($classes, $item) {
+    if (is_post_type_archive('reuniao') || is_singular('reuniao')) {
+        $archive = get_post_type_archive_link('reuniao');
+        if (!empty($item->url) && $archive && trailingslashit($item->url) === trailingslashit($archive)) {
+            $classes[] = 'current-menu-item';
+        }
+    }
+    return $classes;
+}, 10, 2);
+
+/**
  * Permite preenchimento de exemplo via querystring (?seed_sobre=1).
  */
 add_action('template_redirect', function () {

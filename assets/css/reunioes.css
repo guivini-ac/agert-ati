@@ -14,7 +14,7 @@ body.post-type-archive-reuniao {
 
 .filter-bar {
     position:sticky;
-    top:64px;
+    top:80px;
     z-index:10;
     background:var(--white);
     border:1px solid var(--line);
@@ -36,11 +36,13 @@ body.post-type-archive-reuniao {
 }
 
 .filter-chip {
-    background:var(--bg);
-    border:1px solid var(--line);
+    background:#f8f9fb;
+    border:1px solid #e4e7ec;
     border-radius:var(--radius-chip);
+    color:var(--ink);
     padding:.25rem .6rem;
     font-size:.85rem;
+    display:inline-block;
 }
 
 .filter-chip a {
@@ -49,7 +51,7 @@ body.post-type-archive-reuniao {
 }
 
 .tabbar {
-    background:linear-gradient(180deg,#f5f6ff,transparent);
+    background:var(--bg);
     border-radius:12px;
     padding:.5rem .75rem;
 }
@@ -57,7 +59,6 @@ body.post-type-archive-reuniao {
 .tabbar .nav-link {
     border-radius:10px;
 }
-
 
 .duration-badge {
     position:absolute;
@@ -76,7 +77,7 @@ body.post-type-archive-reuniao {
 }
 
 @media (max-width: 768px){
-    .filter-bar { top:56px; }
+    .filter-bar { top:70px; }
 }
 
 .doc-row {

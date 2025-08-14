@@ -40,10 +40,13 @@
 /* Estado ativo (WordPress aplica estas classes) */
 .main-nav .menu .current-menu-item > a,
 .main-nav .menu .current-menu-ancestor > a,
-.main-nav .menu a[aria-current="page"] {
-  background:#ffffff;
-  color:#0c0c19;
-  box-shadow:0 1px 0 rgba(0,0,0,.08);
+.main-nav .menu a[aria-current="page"],
+.main-nav .menu .current-page-ancestor > a {
+  background: #ffffff;
+  color: var(--brand, #0B0A14);
+  border-radius: 12px;
+  padding: .4rem .75rem;
+  box-shadow: 0 1px 0 rgba(0,0,0,.08);
 }
 
 /* Responsivo: empilhar em telas muito estreitas */

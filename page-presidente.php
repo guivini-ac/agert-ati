@@ -27,19 +27,20 @@ if (have_posts()) :
         $mandato          = agert_meta($post_id, 'mandato_periodo', '2020–2025');
         $formacao         = agert_meta($post_id, 'formacao', 'Direito');
         $especializacao   = agert_meta($post_id, 'especializacao', 'Administração Pública');
-        $bio_breve        = agert_meta($post_id, 'bio_breve', __('Líder com vasta experiência no setor público e privado.', 'agert'));
+        $bio_breve        = agert_meta($post_id, 'bio_breve', 'Líder experiente no setor público, com sólida formação jurídica e ampla vivência em administração pública. Atua com foco na transparência, eficiência e modernização dos serviços regulados, sempre priorizando o interesse público e o bem-estar da população timonense.');
         $experiencias     = agert_meta($post_id, 'experiencias', array(
-            array('cargo' => 'Diretor Executivo', 'orgao' => 'Empresa XYZ', 'periodo' => '2015-2020'),
-            array('cargo' => 'Conselheiro', 'orgao' => 'Órgão ABC', 'periodo' => '2012-2014'),
-            array('cargo' => 'Professor', 'orgao' => 'Universidade Federal', 'periodo' => '2008-2012'),
-            array('cargo' => 'Consultor', 'orgao' => 'Projetos Diversos', 'periodo' => '2000-2008'),
+            array('cargo' => 'Diretor Jurídico', 'orgao' => 'Prefeitura Municipal de Timon', 'periodo' => '2016-2020'),
+            array('cargo' => 'Conselheiro', 'orgao' => 'Conselho Municipal de Desenvolvimento', 'periodo' => '2014-2016'),
+            array('cargo' => 'Procurador Municipal', 'orgao' => 'Procuradoria Geral do Município', 'periodo' => '2010-2014'),
+            array('cargo' => 'Advogado Sênior', 'orgao' => 'Escritório de Advocacia', 'periodo' => '2005-2010'),
+            array('cargo' => 'Assessor Jurídico', 'orgao' => 'Câmara Municipal de Timon', 'periodo' => '2000-2005'),
         ));
         $formacoes        = agert_meta($post_id, 'formacoes', array(
-            array('curso' => 'Graduação em Direito', 'instituicao' => 'UFPR', 'ano' => '1995'),
-            array('curso' => 'MBA em Gestão', 'instituicao' => 'FGV', 'ano' => '2000'),
-            array('curso' => 'Especialização em Administração Pública', 'instituicao' => 'UFRGS', 'ano' => '2005'),
+            array('curso' => 'Graduação em Direito', 'instituicao' => 'Universidade Federal do Maranhão', 'ano' => '1998'),
+            array('curso' => 'Especialização em Direito Administrativo', 'instituicao' => 'Universidade Católica de Brasília', 'ano' => '2003'),
+            array('curso' => 'MBA em Gestão Pública', 'instituicao' => 'Fundação Getúlio Vargas', 'ano' => '2008'),
         ));
-        $mensagem         = agert_meta($post_id, 'mensagem', __('Trabalhamos diariamente para fortalecer a radiodifusão e servir à sociedade gaúcha.', 'agert'));
+        $mensagem         = agert_meta($post_id, 'mensagem', 'A AGERT tem o compromisso de regular os serviços públicos delegados com transparência, eficiência e sempre priorizando o interesse da população timonense. Trabalhamos para garantir que os serviços essenciais sejam prestados com qualidade, acessibilidade e tarifas justas, contribuindo para o desenvolvimento sustentável de nossa cidade.');
         $assinatura_nome  = agert_meta($post_id, 'assinatura_nome', 'Dr. João Carlos Silva Santos');
         $assinatura_cargo = agert_meta($post_id, 'assinatura_cargo', 'Presidente da AGERT');
 
@@ -145,9 +146,6 @@ if (have_posts()) :
             <?php endif; ?>
         </div>
     </div>
-    <?php if (!$has_content && current_user_can('manage_options')) : ?>
-        <p class="text-center text-muted small mt-4"><?php _e('Preencha os campos da página do Presidente em Aparência › Campos (ACF) ou Meta.', 'agert'); ?></p>
-    <?php endif; ?>
 </div>
 <?php
         endwhile;

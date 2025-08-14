@@ -8,11 +8,6 @@
 get_header();
 
 $base_url = get_post_type_archive_link('reuniao');
-if (current_user_can('manage_options') && isset($_GET['seed_demo'])) {
-    agert_seed_demo_if_empty();
-    wp_safe_redirect(remove_query_arg('seed_demo', $base_url));
-    exit;
-}
 
 $years = agert_available_years();
 $tab   = isset($_GET['tab']) ? sanitize_key($_GET['tab']) : 'reunioes';
@@ -66,14 +61,12 @@ $tabs = array(
     <div class="container">
         <h1 class="text-center">Reuniões</h1>
         <p class="lead">Atas, resoluções, relatórios e vídeos disponíveis.</p>
-        <?php if (current_user_can('manage_options')) : ?>
-            <a href="<?php echo esc_url(add_query_arg('seed_demo', 1)); ?>" class="btn btn-outline-brand btn-sm mb-3">Criar dados de exemplo</a>
-        <?php endif; ?>
         <div class="pills-ano d-flex justify-content-center overflow-auto flex-nowrap mb-4">
             <div class="btn-group" role="group" aria-label="Filtro por ano">
                 <?php foreach ($years as $y) :
                     $url = esc_url(add_query_arg(array_merge($common_args, array('ano' => $y, 'tab' => $tab)), $base_url));
-                    $active = $ano === $y ? 'btn-brand' : 'btn-outline-brand'; ?>
+                    $active = $ano === $y ? 'btn-brand' : 'btn-outline-brand';
+                ?>
                     <a href="<?php echo $url; ?>" class="btn <?php echo $active; ?> btn-sm"><?php echo esc_html($y); ?></a>
                 <?php endforeach; ?>
             </div>
@@ -81,7 +74,8 @@ $tabs = array(
         <div class="nav tabbar justify-content-center" role="tablist">
             <?php foreach ($tabs as $key => $info) :
                 $active = $tab === $key;
-                $url = esc_url(add_query_arg(array_merge($common_args, array('tab' => $key, 'ano' => $ano)), $base_url)); ?>
+                $url = esc_url(add_query_arg(array_merge($common_args, array('tab' => $key, 'ano' => $ano)), $base_url));
+            ?>
                 <a class="btn <?php echo $active ? 'btn-brand' : 'btn-outline-brand'; ?> me-2 mb-2" href="<?php echo $url; ?>" aria-current="<?php echo $active ? 'page' : 'false'; ?>">
                     <i class="bi <?php echo esc_attr($info['icon']); ?> me-1"></i><?php echo esc_html($info['label']); ?>
                     <span class="badge-chip ms-1"><?php echo (int) $info['count']; ?></span>
@@ -243,6 +237,7 @@ switch ($tab) {
             )) . '</nav>';
         } else {
             $reset_url = esc_url(add_query_arg(array('tab' => 'videos', 'ano' => $ano), $base_url));
+            $message = __('Nenhum vídeo encontrado para os filtros aplicados.', 'agert');
             include locate_template('parts/reunioes/empty-state.php', false, false);
         }
         break;
@@ -275,7 +270,7 @@ switch ($tab) {
             wp_reset_postdata();
         } else {
             $reset_url = esc_url(add_query_arg(array('tab' => 'reunioes', 'ano' => $ano), $base_url));
-            $seed_url = current_user_can('manage_options') ? esc_url(add_query_arg('seed_demo', 1)) : '';
+            $message = __('Nenhuma reunião encontrada para os filtros aplicados.', 'agert');
             include locate_template('parts/reunioes/empty-state.php', false, false);
         }
         break;

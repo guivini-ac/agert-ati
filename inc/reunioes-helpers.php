@@ -10,6 +10,22 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * Recupera meta com fallback para ACF
+ */
+if (!function_exists('agert_meta')) {
+    function agert_meta($id, $key, $default = '') {
+        if (function_exists('get_field')) {
+            $value = get_field($key, $id);
+            if ($value !== null && $value !== false && $value !== '') {
+                return $value;
+            }
+        }
+        $value = get_post_meta($id, $key, true);
+        return $value !== '' ? $value : $default;
+    }
+}
+
+/**
  * Converte minutos em formato "3h 15min".
  */
 function agert_minutes_to_human(int $min): string {
@@ -94,58 +110,33 @@ function agert_reuniao_has_docs(int $post_id): bool {
  *
  * @return int[]
  */
-function agert_get_reuniao_years(): array {
-    global $wpdb;
-
-    $rows = $wpdb->get_col(
-        "SELECT DISTINCT YEAR(pm.meta_value)
-         FROM {$wpdb->postmeta} pm
-         INNER JOIN {$wpdb->posts} p ON p.ID = pm.post_id
-         WHERE pm.meta_key = 'data_hora'
-           AND p.post_type = 'reuniao'
-           AND p.post_status = 'publish'
-         ORDER BY pm.meta_value DESC"
-    );
-
-    $years = array_map('intval', $rows);
-
-    if (empty($years)) {
-        $years[] = (int) gmdate('Y');
-    }
-
-    return $years;
-}
-
-/**
- * Retorna o primeiro ano com conteúdo usando callback.
- *
- * @param int[]   $years   Anos disponíveis.
- * @param int     $year    Ano solicitado.
- * @param callable $checker Função que recebe o ano e retorna true se houver conteúdo.
- *
- * @return int Ano válido encontrado.
- */
-function agert_find_year_with_content(array $years, int $year, callable $checker): int {
-    $to_try = $year && in_array($year, $years, true)
-        ? array_merge(array($year), array_diff($years, array($year)))
-        : $years;
-
-    foreach ($to_try as $y) {
-        if (call_user_func($checker, $y)) {
-            return $y;
-        }
-    }
-
-    return $years[0] ?? (int) gmdate('Y');
-}
-
-/**
- * Retorna lista de anos disponíveis para reuniões.
- *
- * @return int[]
- */
 function agert_available_years(): array {
-    return agert_get_reuniao_years();
+    $years = array();
+    $q = new WP_Query(array(
+        'post_type' => 'reuniao',
+        'post_status' => 'publish',
+        'posts_per_page' => -1,
+        'fields' => 'ids'
+    ));
+    
+    foreach ($q->posts as $pid) {
+        $dt = agert_meta($pid, 'data_hora', '');
+        if ($dt) {
+            $y = (int) date_i18n('Y', strtotime($dt));
+        } else {
+            $y = (int) get_the_date('Y', $pid);
+        }
+        $years[$y] = true;
+    }
+    
+    $keys = array_keys($years);
+    rsort($keys);
+    
+    if (empty($keys)) {
+        $keys[] = (int) date('Y');
+    }
+    
+    return $keys;
 }
 
 /**
@@ -154,12 +145,12 @@ function agert_available_years(): array {
  * @return int
  */
 function agert_active_year(): int {
-    $years     = agert_available_years();
-    $requested = isset($_GET['ano']) ? (int) $_GET['ano'] : 0;
-    if ($requested && in_array($requested, $years, true)) {
-        return $requested;
+    $y = isset($_GET['ano']) ? (int) $_GET['ano'] : 0;
+    $list = agert_available_years();
+    if ($y && in_array($y, $list, true)) {
+        return $y;
     }
-    return $years[0] ?? (int) gmdate('Y');
+    return $list[0];
 }
 
 /**
@@ -170,114 +161,224 @@ function agert_active_year(): int {
  * @return WP_Query
  */
 function agert_query_reunioes_filtradas(array $p): WP_Query {
-    $args = wp_parse_args($p, array(
-        'ano'            => 0,
-        'q'              => '',
-        'tipo'           => '',
-        'status'         => '',
-        'de'             => '',
-        'ate'            => '',
-        'local'          => '',
-        'ordem'          => 'data_desc',
-        'paged'          => 1,
-        'posts_per_page' => 9,
-        'fields'         => '',
-    ));
-
-    $query_args = array(
-        'post_type'      => 'reuniao',
-        'post_status'    => 'publish',
-        'paged'          => (int) $args['paged'],
-        'posts_per_page' => (int) $args['posts_per_page'],
+    $ano = (int) ($p['ano'] ?? agert_active_year());
+    $de = $p['de'] ?? sprintf('%d-01-01 00:00:00', $ano);
+    $ate = $p['ate'] ?? sprintf('%d-12-31 23:59:59', $ano);
+    
+    $meta_query = array('relation' => 'AND');
+    
+    // data_hora OU post_date (fallback)
+    $meta_query[] = array(
+        'relation' => 'OR',
+        array(
+            'key' => 'data_hora',
+            'value' => array($de, $ate),
+            'type' => 'DATETIME',
+            'compare' => 'BETWEEN'
+        ),
+        array(
+            'key' => 'data_hora',
+            'compare' => 'NOT EXISTS'
+        )
     );
-
-    $meta_query = array();
-    $tax_query  = array();
-
-    if ($args['ano']) {
-        $meta_query[] = array(
-            'key'     => 'data_hora',
-            'value'   => array($args['ano'] . '-01-01', $args['ano'] . '-12-31'),
-            'compare' => 'BETWEEN',
-            'type'    => 'DATETIME',
-        );
-    }
-
-    if ($args['de'] || $args['ate']) {
-        $de  = $args['de'] ? $args['de'] : ($args['ano'] ? $args['ano'] . '-01-01' : '');
-        $ate = $args['ate'] ? $args['ate'] : ($args['ano'] ? $args['ano'] . '-12-31' : '');
-        if ($de && $ate) {
-            $meta_query[] = array(
-                'key'     => 'data_hora',
-                'value'   => array($de, $ate),
-                'compare' => 'BETWEEN',
-                'type'    => 'DATETIME',
-            );
+    
+    if (!empty($p['status'])) {
+        if ($p['status'] === 'video') {
+            $meta_query[] = array('key' => 'videos', 'compare' => 'EXISTS');
+        }
+        if ($p['status'] === 'docs') {
+            $meta_query[] = array('key' => 'documentos', 'compare' => 'EXISTS');
         }
     }
-
-    if ($args['status'] === 'video') {
+    
+    if (!empty($p['local'])) {
         $meta_query[] = array(
-            'key'     => 'videos',
-            'value'   => '',
-            'compare' => '!=',
-        );
-    } elseif ($args['status'] === 'docs') {
-        $meta_query[] = array(
-            'key'     => 'documentos',
-            'value'   => '',
-            'compare' => '!=',
+            'key' => 'local',
+            'value' => $p['local'],
+            'compare' => 'LIKE'
         );
     }
-
-    if ($args['local']) {
-        $meta_query[] = array(
-            'key'     => 'local',
-            'value'   => $args['local'],
-            'compare' => 'LIKE',
-        );
-    }
-
-    if ($args['tipo']) {
+    
+    $args = array(
+        'post_type'      => 'reuniao',
+        'post_status'    => 'publish',
+        'paged'          => max(1, (int) ($p['paged'] ?? 1)),
+        'posts_per_page' => (int) ($p['posts_per_page'] ?? 9),
+        's'              => $p['q'] ?? '',
+        'meta_query'     => $meta_query,
+    );
+    
+    // tipo: tax ou meta
+    if (!empty($p['tipo'])) {
         if (taxonomy_exists('tipo_reuniao')) {
-            $tax_query[] = array(
+            $args['tax_query'] = array(array(
                 'taxonomy' => 'tipo_reuniao',
                 'field'    => 'slug',
-                'terms'    => $args['tipo'],
-            );
+                'terms'    => $p['tipo']
+            ));
         } else {
             $meta_query[] = array(
                 'key'   => 'tipo_reuniao',
-                'value' => $args['tipo'],
+                'value' => $p['tipo'],
+                'compare' => 'LIKE'
+            );
+            $args['meta_query'] = $meta_query;
+        }
+    }
+    
+    // ordenação
+    $ordem = $p['ordem'] ?? 'data_desc';
+    if ($ordem === 'data_asc' || $ordem === 'data_desc') {
+        $args['meta_key'] = 'data_hora';
+        $args['orderby'] = 'meta_value';
+        $args['meta_type'] = 'DATETIME';
+        $args['order'] = ($ordem === 'data_asc') ? 'ASC' : 'DESC';
+    } elseif ($ordem === 'titulo_za') {
+        $args['orderby'] = 'title';
+        $args['order'] = 'DESC';
+    } else {
+        $args['orderby'] = 'title';
+        $args['order'] = 'ASC';
+    }
+    
+    if (!empty($p['fields'])) {
+        $args['fields'] = $p['fields'];
+    }
+    
+    return new WP_Query($args);
+}
+
+/**
+ * Coleta documentos agregados das reuniões filtradas.
+ *
+ * @param array $p Filtros para agert_query_reunioes_filtradas.
+ * @return array Lista de documentos
+ */
+function agert_coletar_documentos(array $p): array {
+    $q = agert_query_reunioes_filtradas(array_merge($p, array('posts_per_page' => -1)));
+    $items = array();
+    
+    while ($q->have_posts()) {
+        $q->the_post();
+        $pid = get_the_ID();
+        
+        $docs = agert_meta($pid, 'documentos', array());
+        if (!is_array($docs) || empty($docs)) {
+            // fallback: pegar attachments do post
+            $atts = get_children(array(
+                'post_parent' => $pid,
+                'post_type' => 'attachment',
+                'posts_per_page' => -1
+            ));
+            foreach ($atts as $att) {
+                $file_path = get_attached_file($att->ID);
+                $items[] = array(
+                    'doc' => array(
+                        'rotulo' => get_post_mime_type($att->ID),
+                        'arquivo_id' => $att->ID,
+                        'arquivo_url' => wp_get_attachment_url($att->ID),
+                        'tamanho_bytes' => $file_path ? filesize($file_path) : 0,
+                        'resumo' => ''
+                    ),
+                    'meeting' => get_post($pid)
+                );
+            }
+        } else {
+            foreach ($docs as $d) {
+                $items[] = array(
+                    'doc' => $d,
+                    'meeting' => get_post($pid)
+                );
+            }
+        }
+    }
+    wp_reset_postdata();
+    
+    return array(
+        'results' => $items,
+        'total' => count($items),
+        'pages' => 1
+    );
+}
+
+/**
+ * Coleta vídeos agregados das reuniões filtradas.
+ *
+ * @param array $p Filtros.
+ * @return array {results,total,pages}
+ */
+function agert_coletar_videos(array $p): array {
+    $q = agert_query_reunioes_filtradas(array_merge($p, array('posts_per_page' => -1)));
+    $items = array();
+    
+    while ($q->have_posts()) {
+        $q->the_post();
+        $pid = get_the_ID();
+        
+        // Meta videos (array)
+        $list = agert_meta($pid, 'videos', array());
+        if (is_array($list) && !empty($list)) {
+            foreach ($list as $v) {
+                $v['parent_id'] = $pid;
+                $items[] = array(
+                    'video' => $v,
+                    'meeting' => get_post($pid)
+                );
+            }
+        }
+        
+        // Meta video_url simples
+        $single = agert_meta($pid, 'video_url', '');
+        if ($single) {
+            $items[] = array(
+                'video' => array(
+                    'titulo' => get_the_title($pid),
+                    'video_url' => $single,
+                    'duracao_segundos' => 0,
+                    'descricao' => '',
+                    'parent_id' => $pid
+                ),
+                'meeting' => get_post($pid)
             );
         }
     }
-
-    if ($args['q']) {
-        $query_args['s'] = $args['q'];
-        $meta_query[]    = array(
-            'relation' => 'OR',
+    wp_reset_postdata();
+    
+    // Juntar com CPT 'reuniao_video'
+    $rel = new WP_Query(array(
+        'post_type' => 'reuniao_video',
+        'post_status' => 'publish',
+        'posts_per_page' => -1,
+        'meta_query' => array(
             array(
-                'key'     => 'resumo',
-                'value'   => $args['q'],
-                'compare' => 'LIKE',
-            ),
-            array(
-                'key'     => 'pauta',
-                'value'   => $args['q'],
-                'compare' => 'LIKE',
-            ),
-        );
+                'key' => 'reuniao_relacionada',
+                'compare' => 'EXISTS'
+            )
+        )
+    ));
+    
+    foreach ($rel->posts as $v) {
+        $pid = (int) get_post_meta($v->ID, 'reuniao_relacionada', true);
+        if ($pid) {
+            $items[] = array(
+                'video' => array(
+                    'titulo' => get_the_title($v->ID),
+                    'video_url' => get_post_meta($v->ID, 'video_url', true),
+                    'duracao_segundos' => (int) get_post_meta($v->ID, 'duracao_segundos', true),
+                    'descricao' => wp_strip_all_tags(get_post_field('post_content', $v->ID)),
+                    'parent_id' => $pid
+                ),
+                'meeting' => get_post($pid)
+            );
+        }
     }
-
-    if ($meta_query) {
-        $query_args['meta_query'] = array_merge(array('relation' => 'AND'), $meta_query);
-    }
-    if ($tax_query) {
-        $query_args['tax_query'] = $tax_query;
-    }
-
-    switch ($args['ordem']) {
+    
+    return array(
+        'results' => $items,
+        'total' => count($items),
+        'pages' => 1
+    );
+}
         case 'data_asc':
             $query_args['orderby']   = 'meta_value';
             $query_args['meta_key']  = 'data_hora';
@@ -432,4 +533,3 @@ function agert_seed_demo_if_empty() {
         'duracao_segundos' => 120,
         'descricao' => 'Transmissão de exemplo.',
     )));
-}

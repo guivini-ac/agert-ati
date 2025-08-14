@@ -102,6 +102,36 @@ function agert_register_post_types() {
 add_action('init', 'agert_register_post_types');
 
 /**
+ * Registrar CPT para Vídeos de Reuniões
+ */
+function agert_register_reuniao_video_cpt() {
+    register_post_type('reuniao_video', array(
+        'labels' => array(
+            'name' => __('Vídeos de Reuniões', 'agert'),
+            'singular_name' => __('Vídeo de Reunião', 'agert'),
+            'menu_name' => __('Vídeos de Reuniões', 'agert'),
+            'add_new' => __('Novo Vídeo', 'agert'),
+            'add_new_item' => __('Adicionar Novo Vídeo', 'agert'),
+            'edit_item' => __('Editar Vídeo', 'agert'),
+            'new_item' => __('Novo Vídeo', 'agert'),
+            'view_item' => __('Ver Vídeo', 'agert'),
+            'search_items' => __('Buscar Vídeos', 'agert'),
+            'not_found' => __('Nenhum vídeo encontrado', 'agert'),
+            'not_found_in_trash' => __('Nenhum vídeo encontrado na lixeira', 'agert'),
+            'all_items' => __('Todos os Vídeos', 'agert'),
+        ),
+        'public' => false,
+        'show_ui' => true,
+        'show_in_menu' => 'edit.php?post_type=reuniao',
+        'menu_position' => null,
+        'supports' => array('title', 'editor'),
+        'capability_type' => 'post',
+        'hierarchical' => false,
+    ));
+}
+add_action('init', 'agert_register_reuniao_video_cpt');
+
+/**
  * Registrar taxonomias
  */
 function agert_register_taxonomies() {
@@ -177,6 +207,16 @@ function agert_add_meta_boxes() {
         __('Detalhes do Participante', 'agert'),
         'agert_participante_meta_box_callback',
         'participante',
+        'normal',
+        'high'
+    );
+    
+    // Meta box para Vídeo de Reunião
+    add_meta_box(
+        'reuniao_video_details',
+        __('Detalhes do Vídeo', 'agert'),
+        'agert_reuniao_video_meta_box_callback',
+        'reuniao_video',
         'normal',
         'high'
     );
@@ -312,6 +352,63 @@ function agert_participante_meta_box_callback($post) {
 }
 
 /**
+ * Callback para meta box do Vídeo de Reunião
+ */
+function agert_reuniao_video_meta_box_callback($post) {
+    wp_nonce_field('agert_reuniao_video_meta_nonce', 'reuniao_video_meta_nonce');
+    
+    $reuniao_relacionada = get_post_meta($post->ID, 'reuniao_relacionada', true);
+    $video_url = get_post_meta($post->ID, 'video_url', true);
+    $duracao_segundos = get_post_meta($post->ID, 'duracao_segundos', true);
+    
+    // Buscar reuniões para select
+    $reunioes = get_posts(array(
+        'post_type' => 'reuniao',
+        'posts_per_page' => -1,
+        'post_status' => 'publish',
+        'orderby' => 'date',
+        'order' => 'DESC'
+    ));
+    ?>
+    <table class="form-table">
+        <tr>
+            <th><label for="reuniao_relacionada"><?php _e('Reunião Relacionada *', 'agert'); ?></label></th>
+            <td>
+                <select id="reuniao_relacionada" name="reuniao_relacionada" class="regular-text" required>
+                    <option value=""><?php _e('Selecione uma reunião', 'agert'); ?></option>
+                    <?php foreach ($reunioes as $reuniao) : ?>
+                        <option value="<?php echo $reuniao->ID; ?>" <?php selected($reuniao_relacionada, $reuniao->ID); ?>>
+                            <?php echo esc_html($reuniao->post_title); ?>
+                            <?php 
+                            $data = get_post_meta($reuniao->ID, 'data_hora', true);
+                            if ($data) {
+                                echo ' - ' . date_i18n('d/m/Y', strtotime($data));
+                            }
+                            ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="video_url"><?php _e('URL do Vídeo *', 'agert'); ?></label></th>
+            <td>
+                <input type="url" id="video_url" name="video_url" value="<?php echo esc_url($video_url); ?>" class="regular-text" required />
+                <p class="description"><?php _e('URL do YouTube, Vimeo ou outro serviço de vídeo', 'agert'); ?></p>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="duracao_segundos"><?php _e('Duração (segundos)', 'agert'); ?></label></th>
+            <td>
+                <input type="number" id="duracao_segundos" name="duracao_segundos" value="<?php echo esc_attr($duracao_segundos); ?>" class="regular-text" min="0" />
+                <p class="description"><?php _e('Duração do vídeo em segundos (opcional)', 'agert'); ?></p>
+            </td>
+        </tr>
+    </table>
+    <?php
+}
+
+/**
  * Salvar meta fields
  */
 function agert_save_meta_boxes($post_id) {
@@ -361,6 +458,19 @@ function agert_save_meta_boxes($post_id) {
             update_post_meta($post_id, '_reuniao_id', intval($_POST['reuniao_id']));
         }
     }
+    
+    // Salvar meta do vídeo de reunião
+    if (isset($_POST['reuniao_video_meta_nonce']) && wp_verify_nonce($_POST['reuniao_video_meta_nonce'], 'agert_reuniao_video_meta_nonce')) {
+        if (isset($_POST['reuniao_relacionada'])) {
+            update_post_meta($post_id, 'reuniao_relacionada', intval($_POST['reuniao_relacionada']));
+        }
+        if (isset($_POST['video_url'])) {
+            update_post_meta($post_id, 'video_url', esc_url_raw($_POST['video_url']));
+        }
+        if (isset($_POST['duracao_segundos'])) {
+            update_post_meta($post_id, 'duracao_segundos', intval($_POST['duracao_segundos']));
+        }
+    }
 }
 add_action('save_post', 'agert_save_meta_boxes');
 
@@ -388,3 +498,49 @@ function agert_create_default_terms() {
     }
 }
 add_action('init', 'agert_create_default_terms', 20);
+
+/**
+ * Adicionar colunas customizadas para reuniao_video
+ */
+function agert_reuniao_video_columns($columns) {
+    $columns['reuniao'] = __('Reunião', 'agert');
+    $columns['video_url'] = __('URL do Vídeo', 'agert');
+    $columns['duracao'] = __('Duração', 'agert');
+    return $columns;
+}
+add_filter('manage_reuniao_video_posts_columns', 'agert_reuniao_video_columns');
+
+function agert_reuniao_video_columns_content($column, $post_id) {
+    switch ($column) {
+        case 'reuniao':
+            $reuniao_id = get_post_meta($post_id, 'reuniao_relacionada', true);
+            if ($reuniao_id) {
+                $reuniao = get_post($reuniao_id);
+                if ($reuniao) {
+                    echo '<a href="' . get_edit_post_link($reuniao_id) . '">' . esc_html($reuniao->post_title) . '</a>';
+                }
+            } else {
+                echo '-';
+            }
+            break;
+        case 'video_url':
+            $url = get_post_meta($post_id, 'video_url', true);
+            if ($url) {
+                echo '<a href="' . esc_url($url) . '" target="_blank" rel="noopener">' . esc_html(parse_url($url, PHP_URL_HOST)) . '</a>';
+            } else {
+                echo '-';
+            }
+            break;
+        case 'duracao':
+            $segundos = get_post_meta($post_id, 'duracao_segundos', true);
+            if ($segundos) {
+                $minutos = floor($segundos / 60);
+                $seg = $segundos % 60;
+                echo sprintf('%02d:%02d', $minutos, $seg);
+            } else {
+                echo '-';
+            }
+            break;
+    }
+}
+add_action('manage_reuniao_video_posts_custom_column', 'agert_reuniao_video_columns_content', 10, 2);

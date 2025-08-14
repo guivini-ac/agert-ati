@@ -14,7 +14,4 @@ if (!defined('ABSPATH')) {
     <?php if (!empty($reset_url)) : ?>
         <a href="<?php echo esc_url($reset_url); ?>" class="btn btn-brand"><?php esc_html_e('Limpar filtros', 'agert'); ?></a>
     <?php endif; ?>
-    <?php if (!empty($seed_url)) : ?>
-        <a href="<?php echo esc_url($seed_url); ?>" class="btn btn-outline-brand ms-2"><?php esc_html_e('Criar dados de exemplo', 'agert'); ?></a>
-    <?php endif; ?>
 </div>
