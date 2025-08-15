@@ -226,32 +226,63 @@ function agert_user_can_create_posts() {
 /**
  * Exibir lista de reuniões para select
  */
-function agert_get_meetings_options($selected = '') {
-    $meetings = get_posts(array(
-        'post_type' => 'reuniao',
-        'posts_per_page' => -1,
-        'post_status' => 'publish',
-        'orderby' => 'date',
-        'order' => 'DESC'
+function agert_get_meetings_options($selected = '', $limit = 50) {
+    $query = new WP_Query(array(
+        'post_type'      => 'reuniao',
+        'posts_per_page' => intval($limit),
+        'post_status'    => 'publish',
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+        'fields'         => 'ids'
     ));
-    
+
     $options = '<option value="">' . __('Selecione uma reunião', 'agert') . '</option>';
-    
-    foreach ($meetings as $meeting) {
-        $data_hora = get_post_meta($meeting->ID, '_data_hora', true);
+
+    foreach ($query->posts as $meeting_id) {
+        $data_hora = get_post_meta($meeting_id, '_data_hora', true);
         $data_formatada = !empty($data_hora) ? ' - ' . agert_format_datetime($data_hora) : '';
-        
+
         $options .= sprintf(
             '<option value="%d" %s>%s%s</option>',
-            $meeting->ID,
-            selected($selected, $meeting->ID, false),
-            esc_html($meeting->post_title),
+            $meeting_id,
+            selected($selected, $meeting_id, false),
+            esc_html(get_the_title($meeting_id)),
             esc_html($data_formatada)
         );
     }
-    
+
+    wp_reset_postdata();
+
     return $options;
 }
+
+function agert_ajax_get_meetings() {
+    check_ajax_referer('agert_nonce', 'nonce');
+
+    $query = new WP_Query(array(
+        'post_type'      => 'reuniao',
+        'posts_per_page' => 100,
+        'post_status'    => 'publish',
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+        'fields'         => 'ids'
+    ));
+
+    $meetings = array();
+
+    foreach ($query->posts as $meeting_id) {
+        $data_hora = get_post_meta($meeting_id, '_data_hora', true);
+        $data_formatada = !empty($data_hora) ? ' - ' . agert_format_datetime($data_hora) : '';
+        $meetings[] = array(
+            'id'    => $meeting_id,
+            'title' => get_the_title($meeting_id) . $data_formatada
+        );
+    }
+
+    wp_send_json_success($meetings);
+}
+add_action('wp_ajax_agert_get_meetings', 'agert_ajax_get_meetings');
+add_action('wp_ajax_nopriv_agert_get_meetings', 'agert_ajax_get_meetings');
 
 /**
  * Truncar texto mantendo palavras completas
