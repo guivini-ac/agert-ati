@@ -106,7 +106,10 @@ if (have_posts()) :
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             <?php else : ?>
-                                <p class="text-muted mb-0">Nenhum vídeo disponível</p>
+                                <div class="card-soft video-empty">
+                                    <i class="bi bi-camera-video-off" aria-hidden="true"></i>
+                                    <p>Nenhum vídeo disponível</p>
+                                </div>
                             <?php endif; ?>
                         </div>
                     </div>
