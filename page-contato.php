@@ -76,9 +76,23 @@ $contact_map_url = get_option('agert_contact_map_url', 'https://www.google.com/m
 
         <div class="col-lg-6">
             <h2 class="h5 mb-3"><?php _e('Informações de Contato', 'agert'); ?></h2>
-            <p class="mb-2"><i class="bi bi-geo-alt me-1"></i><?php echo esc_html($contact_address); ?></p>
-            <p class="mb-2"><i class="bi bi-telephone me-1"></i><?php echo esc_html($contact_phone); ?></p>
-            <p class="mb-4"><i class="bi bi-envelope me-1"></i><?php echo esc_html($contact_email); ?></p>
+            <div class="row row-cols-1 row-cols-md-3 g-3 mb-4">
+                <?php get_template_part('template-parts/contato/card-info', null, array(
+                    'icon'  => 'bi-geo-alt',
+                    'label' => __('Endereço', 'agert'),
+                    'text'  => $contact_address,
+                )); ?>
+                <?php get_template_part('template-parts/contato/card-info', null, array(
+                    'icon'  => 'bi-telephone',
+                    'label' => __('Telefone', 'agert'),
+                    'text'  => $contact_phone,
+                )); ?>
+                <?php get_template_part('template-parts/contato/card-info', null, array(
+                    'icon'  => 'bi-envelope',
+                    'label' => __('E-mail', 'agert'),
+                    'text'  => $contact_email,
+                )); ?>
+            </div>
 
             <div class="ratio ratio-16x9">
                 <iframe src="<?php echo esc_url($contact_map_url); ?>" allowfullscreen loading="lazy"></iframe>
