@@ -44,7 +44,7 @@
                 'menu_class'     => 'menu',
                 'link_before'    => '<span>',
                 'link_after'     => '</span>',
-                'fallback_cb'    => false,
+                'fallback_cb'    => 'agert_menu_fallback',
               ]);
             ?>
           </nav>

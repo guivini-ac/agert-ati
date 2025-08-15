@@ -243,6 +243,19 @@ add_filter('nav_menu_css_class', function($classes, $item) {
     return $classes;
 }, 10, 2);
 
+if (!function_exists('agert_menu_fallback')) {
+    /**
+     * Fallback para o menu principal exibindo páginas básicas.
+     */
+    function agert_menu_fallback() {
+        echo '<ul class="menu">';
+        wp_list_pages([
+            'title_li' => '',
+        ]);
+        echo '</ul>';
+    }
+}
+
 /**
  * Permite preenchimento de exemplo via querystring (?seed_sobre=1).
  */
