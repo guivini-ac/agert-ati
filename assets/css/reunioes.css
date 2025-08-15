@@ -104,3 +104,14 @@ body.post-type-archive-reuniao {
     margin-right: .5rem;
     color: #94a3b8;
 }
+
+.reunioes-info {
+    display: grid;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .reunioes-info {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
