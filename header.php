@@ -7,7 +7,11 @@
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
-<head><?php wp_head(); ?></head>
+<head>
+    <meta charset="<?php bloginfo( 'charset' ); ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php wp_head(); ?>
+</head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 <div id="page" class="site">
@@ -17,7 +21,7 @@
       <div class="site-header__bar">
         <div class="container">
           <div class="brand-wrap">
-            <a class="brand" href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php bloginfo('name'); ?>">
+            <a class="brand" href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php echo esc_attr( get_bloginfo('name') ); ?>">
               <?php if (has_custom_logo()) : ?>
                 <span class="brand__logo">
                   <?php the_custom_logo(); ?>
