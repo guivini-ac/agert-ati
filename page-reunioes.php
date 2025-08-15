@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_meeting_nonce'
         $local = sanitize_text_field($_POST['local']);
         $pauta = sanitize_textarea_field($_POST['pauta']);
         $tipo_reuniao = sanitize_text_field($_POST['tipo_reuniao']);
+        $video_url = isset($_POST['video_url']) ? esc_url_raw($_POST['video_url']) : '';
         
         if (!empty($title) && !empty($data_hora)) {
             $meeting_id = wp_insert_post(array(
@@ -32,6 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_meeting_nonce'
                 update_post_meta($meeting_id, '_data_hora', $data_hora);
                 update_post_meta($meeting_id, '_local', $local);
                 update_post_meta($meeting_id, '_pauta', $pauta);
+                if ($video_url) {
+                    update_post_meta($meeting_id, '_video_url', $video_url);
+                }
                 
                 // Definir taxonomia se selecionada
                 if (!empty($tipo_reuniao)) {
@@ -101,13 +105,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_meeting_nonce'
                         $status_class = agert_get_meeting_status_class(get_the_ID());
                         $status_text = agert_get_meeting_status_text(get_the_ID());
                         $tipos = get_the_terms(get_the_ID(), 'tipo_reuniao');
+                        $attachments = agert_get_meeting_attachments(get_the_ID());
+                        $video_url = get_post_meta(get_the_ID(), '_video_url', true);
 
                         get_template_part('template-parts/reunioes/meeting-card', null, array(
-                            'status_class' => $status_class,
-                            'status_text'  => $status_text,
-                            'tipos'        => $tipos,
-                            'data_hora'    => $data_hora,
-                            'local'        => $local,
+                            'status_class'    => $status_class,
+                            'status_text'     => $status_text,
+                            'tipos'           => $tipos,
+                            'data_hora'       => $data_hora,
+                            'local'           => $local,
+                            'has_attachments' => !empty($attachments),
+                            'has_video'       => !empty($video_url),
                         ));
                     endwhile; ?>
                 </div>
@@ -269,7 +277,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_meeting_nonce'
                             <label for="pauta" class="form-label"><?php _e('Pauta', 'agert'); ?></label>
                             <textarea class="form-control" id="pauta" name="pauta" rows="3" placeholder="<?php _e('Descreva os principais pontos da reunião...', 'agert'); ?>"></textarea>
                         </div>
-                        
+
+                        <div class="col-12">
+                            <label for="video_url" class="form-label"><?php _e('URL do Vídeo', 'agert'); ?></label>
+                            <input type="url" class="form-control" id="video_url" name="video_url" placeholder="<?php _e('Link do vídeo da reunião (YouTube, etc.)', 'agert'); ?>">
+                        </div>
+
                         <div class="col-12">
                             <label for="meeting_content" class="form-label"><?php _e('Descrição/Observações', 'agert'); ?></label>
                             <textarea class="form-control" id="meeting_content" name="meeting_content" rows="4" placeholder="<?php _e('Informações adicionais sobre a reunião...', 'agert'); ?>"></textarea>

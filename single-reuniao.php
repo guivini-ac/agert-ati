@@ -80,10 +80,10 @@ if (have_posts()) :
                         </div>
                     <?php endif; ?>
 
-                    <?php if (!empty($videos) && is_array($videos)) : ?>
-                        <div class="card card-soft mb-4" id="transmissao">
-                            <div class="card-body">
-                                <h6 class="fw-semibold mb-3">Transmissão/Vídeos</h6>
+                    <div class="card card-soft mb-4" id="transmissao">
+                        <div class="card-body">
+                            <h6 class="fw-semibold mb-3">Transmissão/Vídeos</h6>
+                            <?php if (!empty($videos) && is_array($videos)) : ?>
                                 <?php foreach ($videos as $vid) :
                                     $url = $vid['video_url'] ?? '';
                                     if (!$url) { continue; }
@@ -96,14 +96,20 @@ if (have_posts()) :
                                     </div>
                                     <?php if (!empty($vid['descricao']) || !empty($vid['duracao_segundos'])) : ?>
                                         <p class="text-muted small mb-3">
-                                            <?php if (!empty($vid['duracao_segundos'])) : ?><?php echo esc_html(agert_seconds_to_mmss((int) $vid['duracao_segundos'])); ?><?php endif; ?>
-                                            <?php if (!empty($vid['descricao'])) : ?><?php echo esc_html($vid['descricao']); ?><?php endif; ?>
+                                            <?php if (!empty($vid['duracao_segundos'])) : ?>
+                                                <?php echo esc_html(agert_seconds_to_mmss((int) $vid['duracao_segundos'])); ?>
+                                            <?php endif; ?>
+                                            <?php if (!empty($vid['descricao'])) : ?>
+                                                <?php echo esc_html($vid['descricao']); ?>
+                                            <?php endif; ?>
                                         </p>
                                     <?php endif; ?>
                                 <?php endforeach; ?>
-                            </div>
+                            <?php else : ?>
+                                <p class="text-muted mb-0">Nenhum vídeo disponível</p>
+                            <?php endif; ?>
                         </div>
-                    <?php endif; ?>
+                    </div>
 
                     <?php if (!empty($pauta) && is_array($pauta)) : ?>
                         <div class="card card-soft mb-4">

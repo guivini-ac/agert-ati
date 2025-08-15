@@ -15,6 +15,8 @@ $defaults = array(
     'tipos'        => array(),
     'data_hora'    => '',
     'local'        => '',
+    'has_attachments' => false,
+    'has_video'       => false,
 );
 $args = wp_parse_args($args, $defaults);
 ?>
@@ -51,9 +53,17 @@ $args = wp_parse_args($args, $defaults);
             <?php endif; ?>
 
             <div class="d-flex justify-content-between align-items-center mt-3">
-                <a href="<?php the_permalink(); ?>" class="btn btn-sm btn-outline-primary">
-                    <i class="bi bi-eye me-1"></i><?php _e('Ver Detalhes', 'agert'); ?>
-                </a>
+                <div class="d-flex align-items-center gap-2">
+                    <a href="<?php the_permalink(); ?>" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-eye me-1"></i><?php _e('Ver Detalhes', 'agert'); ?>
+                    </a>
+                    <?php if ($args['has_attachments']) : ?>
+                        <i class="bi bi-paperclip text-muted" title="<?php esc_attr_e('Possui anexos', 'agert'); ?>"></i>
+                    <?php endif; ?>
+                    <?php if ($args['has_video']) : ?>
+                        <i class="bi bi-camera-video text-muted" title="<?php esc_attr_e('Possui vídeo', 'agert'); ?>"></i>
+                    <?php endif; ?>
+                </div>
                 <?php if (has_excerpt()) : ?>
                     <small class="text-muted"><?php echo esc_html(get_the_excerpt()); ?></small>
                 <?php endif; ?>
