@@ -57,7 +57,7 @@ get_header(); ?>
                         </div>
                         
                         <div class="col-md-6 col-lg-3">
-                            <a href="<?php echo esc_url(get_permalink(get_page_by_path('sobre'))); ?>" class="btn btn-outline-primary w-100 h-100 d-flex flex-column align-items-center justify-content-center p-3">
+                            <a href="<?php echo esc_url(agert_get_page_link('sobre')); ?>" class="btn btn-outline-primary w-100 h-100 d-flex flex-column align-items-center justify-content-center p-3">
                                 <i class="bi bi-info-circle fs-2 mb-2"></i>
                                 <span><?php _e('Sobre a AGERT', 'agert'); ?></span>
                             </a>

@@ -281,3 +281,19 @@ function agert_upload_mimes($mimes) {
     return $mimes;
 }
 add_filter('upload_mimes', 'agert_upload_mimes');
+
+/**
+ * Retorna o link de uma página pelo slug ou a URL inicial como fallback.
+ *
+ * @param string $slug Slug da página desejada.
+ * @return string URL da página ou da home.
+ */
+function agert_get_page_link($slug) {
+    $page = get_page_by_path($slug);
+
+    if ($page instanceof WP_Post) {
+        return get_permalink($page->ID);
+    }
+
+    return home_url('/');
+}

@@ -37,7 +37,7 @@
                     <h6 class="mb-3">Links Úteis</h6>
                     <ul class="list-unstyled">
                         <li class="mb-2">
-                            <a href="<?php echo esc_url(get_permalink(get_page_by_path('sobre'))); ?>" class="text-white-50 text-decoration-none">
+                            <a href="<?php echo esc_url(agert_get_page_link('sobre')); ?>" class="text-white-50 text-decoration-none">
                                 <i class="bi bi-arrow-right me-2"></i>Sobre a AGERT
                             </a>
                         </li>
