@@ -155,7 +155,7 @@ get_header(); ?>
                         </div>
                         <div class="card-body">
                             <div class="d-grid gap-2">
-                                <a href="<?php echo esc_url(get_permalink(get_page_by_path('sobre'))); ?>" class="btn btn-outline-primary btn-sm">
+                                <a href="<?php echo esc_url(agert_get_page_link('sobre')); ?>" class="btn btn-outline-primary btn-sm">
                                     <i class="bi bi-info-circle me-2"></i>
                                     <?php _e('Sobre a AGERT', 'agert'); ?>
                                 </a>

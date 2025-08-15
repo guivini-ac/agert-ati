@@ -20,7 +20,7 @@ get_header(); ?>
                     <?php _e('Garantindo a qualidade e eficiência dos serviços públicos delegados, com transparência e compromisso com o cidadão timonense.', 'agert'); ?>
                 </p>
                 <div class="d-flex flex-wrap gap-3">
-                    <a href="<?php echo esc_url(get_permalink(get_page_by_path('sobre'))); ?>" class="btn btn-light btn-lg">
+                    <a href="<?php echo esc_url(agert_get_page_link('sobre')); ?>" class="btn btn-light btn-lg">
                         <i class="bi bi-info-circle me-2"></i>
                         <?php _e('Conheça a AGERT', 'agert'); ?>
                     </a>
@@ -52,7 +52,7 @@ get_header(); ?>
                     'icon' => 'bi-info-circle',
                     'title' => __('Sobre a AGERT', 'agert'),
                     'description' => __('Conheça nossa missão, visão e estrutura organizacional', 'agert'),
-                    'link' => get_permalink(get_page_by_path('sobre'))
+                    'link' => agert_get_page_link('sobre')
                 ),
                 array(
                     'icon' => 'bi-calendar-event',
