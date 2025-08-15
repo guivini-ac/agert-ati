@@ -42,6 +42,7 @@
                 'theme_location' => 'primary',
                 'container'      => false,
                 'menu_class'     => 'menu',
+                'items_wrap'     => '<ul class="%2$s" role="menubar">%3$s</ul>',
                 'link_before'    => '<span>',
                 'link_after'     => '</span>',
                 'fallback_cb'    => 'agert_menu_fallback',
