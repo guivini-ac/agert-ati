@@ -125,8 +125,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_participant_no
                     </div>
                     <div class="mb-3">
                         <label for="reuniao_id" class="form-label"><?php _e('Reunião', 'agert'); ?></label>
-                        <select id="reuniao_id" name="reuniao_id" class="form-select" required>
-                            <?php echo agert_get_meetings_options(); ?>
+                        <select id="reuniao_id" name="reuniao_id" class="form-select" required data-load-meetings>
+                            <option value=""><?php _e('Selecione uma reunião', 'agert'); ?></option>
                         </select>
                     </div>
                 </div>

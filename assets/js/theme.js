@@ -16,6 +16,7 @@
         initFormValidation();
         initTooltips();
         initScrollToTop();
+        initMeetingSelect();
         
         // Debug mode
         if (window.location.search.includes('debug=1')) {
@@ -137,6 +138,45 @@
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
+            });
+        });
+    }
+
+    /**
+     * Carregar reuniões via AJAX em selects
+     */
+    function initMeetingSelect() {
+        const selects = document.querySelectorAll('select[data-load-meetings]');
+
+        selects.forEach(function(select) {
+            let loaded = false;
+            const placeholder = select.querySelector('option[value=""]')?.textContent || '';
+
+            select.addEventListener('focus', function() {
+                if (loaded) return;
+                loaded = true;
+
+                const params = new URLSearchParams();
+                params.append('action', 'agert_get_meetings');
+                params.append('nonce', agert_ajax.nonce);
+
+                ajaxRequest(agert_ajax.ajax_url, { body: params.toString() })
+                    .then(function(response) {
+                        if (response.success && Array.isArray(response.data)) {
+                            select.innerHTML = '';
+                            const option = document.createElement('option');
+                            option.value = '';
+                            option.textContent = placeholder;
+                            select.appendChild(option);
+
+                            response.data.forEach(function(item) {
+                                const opt = document.createElement('option');
+                                opt.value = item.id;
+                                opt.textContent = item.title;
+                                select.appendChild(opt);
+                            });
+                        }
+                    });
             });
         });
     }
