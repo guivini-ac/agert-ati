@@ -265,11 +265,14 @@ add_action('add_meta_boxes', 'agert_add_meta_boxes');
  */
 function agert_reuniao_meta_box_callback($post) {
     wp_nonce_field('agert_reuniao_meta_nonce', 'reuniao_meta_nonce');
-    
-    $data_hora = get_post_meta($post->ID, '_data_hora', true);
-    $local = get_post_meta($post->ID, '_local', true);
-    $pauta = get_post_meta($post->ID, '_pauta', true);
-    $video_url = get_post_meta($post->ID, '_video_url', true);
+
+    $data_hora   = get_post_meta($post->ID, '_data_hora', true);
+    $local       = get_post_meta($post->ID, '_local', true);
+    $video_url   = get_post_meta($post->ID, '_video_url', true);
+    $pauta       = get_post_meta($post->ID, 'pauta', true);
+    $decisoes    = get_post_meta($post->ID, 'decisoes', true);
+    $pauta_text  = is_array($pauta) ? implode("\n", $pauta) : '';
+    $decisoes_text = is_array($decisoes) ? implode("\n", $decisoes) : '';
     ?>
     <table class="form-table">
         <tr>
@@ -281,14 +284,24 @@ function agert_reuniao_meta_box_callback($post) {
             <td><input type="text" id="local" name="local" value="<?php echo esc_attr($local); ?>" class="regular-text" /></td>
         </tr>
         <tr>
-            <th><label for="pauta"><?php _e('Pauta', 'agert'); ?></label></th>
-            <td><textarea id="pauta" name="pauta" rows="5" class="large-text"><?php echo esc_textarea($pauta); ?></textarea></td>
-        </tr>
-        <tr>
             <th><label for="video_url"><?php _e('URL do Vídeo', 'agert'); ?></label></th>
             <td>
                 <input type="url" id="video_url" name="video_url" value="<?php echo esc_url($video_url); ?>" class="regular-text" />
                 <p class="description"><?php _e('Link do vídeo da reunião (YouTube, etc.)', 'agert'); ?></p>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="pauta"><?php _e('Pauta da Reunião', 'agert'); ?></label></th>
+            <td>
+                <textarea id="pauta" name="pauta" rows="5" class="large-text"><?php echo esc_textarea($pauta_text); ?></textarea>
+                <p class="description"><?php _e('Uma linha por item da pauta', 'agert'); ?></p>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="decisoes"><?php _e('Principais Decisões', 'agert'); ?></label></th>
+            <td>
+                <textarea id="decisoes" name="decisoes" rows="5" class="large-text"><?php echo esc_textarea($decisoes_text); ?></textarea>
+                <p class="description"><?php _e('Uma linha por decisão', 'agert'); ?></p>
             </td>
         </tr>
     </table>
@@ -509,11 +522,18 @@ function agert_save_meta_boxes($post_id) {
         if (isset($_POST['local'])) {
             update_post_meta($post_id, '_local', sanitize_text_field($_POST['local']));
         }
-        if (isset($_POST['pauta'])) {
-            update_post_meta($post_id, '_pauta', sanitize_textarea_field($_POST['pauta']));
-        }
         if (isset($_POST['video_url'])) {
             update_post_meta($post_id, '_video_url', esc_url_raw($_POST['video_url']));
+        }
+        if (isset($_POST['pauta'])) {
+            $items = preg_split("/\r\n|\r|\n/", $_POST['pauta']);
+            $items = array_filter(array_map('sanitize_text_field', array_map('trim', $items)));
+            update_post_meta($post_id, 'pauta', $items);
+        }
+        if (isset($_POST['decisoes'])) {
+            $items = preg_split("/\r\n|\r|\n/", $_POST['decisoes']);
+            $items = array_filter(array_map('sanitize_text_field', array_map('trim', $items)));
+            update_post_meta($post_id, 'decisoes', $items);
         }
     }
     
