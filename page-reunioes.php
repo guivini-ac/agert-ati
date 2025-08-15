@@ -15,7 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_meeting_nonce'
         $content = sanitize_textarea_field($_POST['meeting_content']);
         $data_hora = sanitize_text_field($_POST['data_hora']);
         $local = sanitize_text_field($_POST['local']);
-        $pauta = sanitize_textarea_field($_POST['pauta']);
+        $pauta = preg_split("/\r\n|\r|\n/", $_POST['pauta']);
+        $pauta = array_filter(array_map('sanitize_text_field', array_map('trim', $pauta)));
         $tipo_reuniao = sanitize_text_field($_POST['tipo_reuniao']);
         
         if (!empty($title) && !empty($data_hora)) {
@@ -31,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_meeting_nonce'
                 // Salvar meta fields
                 update_post_meta($meeting_id, '_data_hora', $data_hora);
                 update_post_meta($meeting_id, '_local', $local);
-                update_post_meta($meeting_id, '_pauta', $pauta);
+                update_post_meta($meeting_id, 'pauta', $pauta);
                 
                 // Definir taxonomia se selecionada
                 if (!empty($tipo_reuniao)) {
