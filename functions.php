@@ -204,6 +204,7 @@ require_once get_template_directory() . '/inc/reunioes-helpers.php';
 require_once get_template_directory() . '/inc/presidente-helpers.php';
 require_once get_template_directory() . '/inc/sobre-helpers.php';
 require_once get_template_directory() . '/inc/admin-reunioes.php';
+require_once get_template_directory() . '/inc/admin-presidente.php';
 require_once get_template_directory() . '/components/html.php';
 require_once get_template_directory() . '/inc/security.php';
 require_once get_template_directory() . '/inc/activation.php';
