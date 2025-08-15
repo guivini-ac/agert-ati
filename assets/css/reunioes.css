@@ -120,7 +120,8 @@ body.post-type-archive-reuniao {
 .video-empty p {
     color: var(--muted);
     margin: 0;
-=======
+}
+
 .reunioes-info {
     display: grid;
     gap: 1.5rem;
