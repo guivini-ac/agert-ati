@@ -26,17 +26,30 @@ function agert_create_pages() {
             'title'   => 'Participantes',
             'content' => '<p>Registre participantes das reuniões.</p>'
         ),
+        'videos' => array(
+            'title'   => 'Vídeos',
+            'content' => '<p>Confira os vídeos das reuniões.</p>',
+            'template' => 'page-videos.php',
+        ),
     );
 
     foreach ($pages as $slug => $page_data) {
-        if (!get_page_by_path($slug)) {
-            wp_insert_post(array(
+        $page = get_page_by_path($slug);
+        if (!$page) {
+            $page_id = wp_insert_post(array(
                 'post_title'   => $page_data['title'],
                 'post_content' => $page_data['content'],
                 'post_status'  => 'publish',
                 'post_type'    => 'page',
                 'post_name'    => $slug,
             ));
+            if (!is_wp_error($page_id) && isset($page_data['template'])) {
+                update_post_meta($page_id, '_wp_page_template', $page_data['template']);
+            }
+        } else {
+            if (isset($page_data['template'])) {
+                update_post_meta($page->ID, '_wp_page_template', $page_data['template']);
+            }
         }
     }
 }
@@ -50,7 +63,7 @@ function agert_create_menu() {
 
     if (!$menu) {
         $menu_id = wp_create_nav_menu($menu_name);
-        $pages = array('reunioes', 'anexos', 'participantes');
+        $pages = array('reunioes', 'anexos', 'participantes', 'videos');
         $order = 1;
         foreach ($pages as $slug) {
             $page = get_page_by_path($slug);
