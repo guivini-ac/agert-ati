@@ -98,6 +98,33 @@ function agert_register_post_types() {
         'capability_type' => 'post',
         'hierarchical' => false,
     ));
+
+    // CPT: Agenda Fiscal
+    register_post_type('agenda_fiscal', array(
+        'labels' => array(
+            'name' => __('Agenda Fiscal', 'agert'),
+            'singular_name' => __('Agenda Fiscal', 'agert'),
+            'menu_name' => __('Agenda Fiscal', 'agert'),
+            'add_new' => __('Nova Programação', 'agert'),
+            'add_new_item' => __('Adicionar Programação', 'agert'),
+            'edit_item' => __('Editar Programação', 'agert'),
+            'new_item' => __('Nova Programação', 'agert'),
+            'view_item' => __('Ver Programação', 'agert'),
+            'search_items' => __('Buscar Programações', 'agert'),
+            'not_found' => __('Nenhuma programação encontrada', 'agert'),
+            'not_found_in_trash' => __('Nenhuma programação encontrada na lixeira', 'agert'),
+            'all_items' => __('Todas as Programações', 'agert'),
+        ),
+        'public' => true,
+        'has_archive' => true,
+        'menu_icon' => 'dashicons-calendar-alt',
+        'menu_position' => 8,
+        'supports' => array('title'),
+        'rewrite' => array('slug' => 'agenda-fiscal'),
+        'show_in_rest' => true,
+        'capability_type' => 'post',
+        'hierarchical' => false,
+    ));
 }
 add_action('init', 'agert_register_post_types');
 
@@ -210,7 +237,17 @@ function agert_add_meta_boxes() {
         'normal',
         'high'
     );
-    
+
+    // Meta box para Agenda Fiscal
+    add_meta_box(
+        'agenda_fiscal_details',
+        __('Detalhes da Programação', 'agert'),
+        'agert_agenda_fiscal_meta_box_callback',
+        'agenda_fiscal',
+        'normal',
+        'high'
+    );
+
     // Meta box para Vídeo de Reunião
     add_meta_box(
         'reuniao_video_details',
@@ -352,6 +389,53 @@ function agert_participante_meta_box_callback($post) {
 }
 
 /**
+ * Callback para meta box da Agenda Fiscal
+ */
+function agert_agenda_fiscal_meta_box_callback($post) {
+    wp_nonce_field('agert_agenda_fiscal_meta_nonce', 'agenda_fiscal_meta_nonce');
+
+    $inicio = get_post_meta($post->ID, '_inicio', true);
+    $fim = get_post_meta($post->ID, '_fim', true);
+    $prestador = get_post_meta($post->ID, '_prestador', true);
+    $atividade = get_post_meta($post->ID, '_atividade', true);
+    $modalidade = get_post_meta($post->ID, '_modalidade', true);
+    $responsavel = get_post_meta($post->ID, '_responsavel', true);
+    $objetivo = get_post_meta($post->ID, '_objetivo', true);
+    ?>
+    <table class="form-table">
+        <tr>
+            <th><label for="inicio"><?php _e('Início', 'agert'); ?></label></th>
+            <td><input type="date" id="inicio" name="inicio" value="<?php echo esc_attr($inicio); ?>" class="regular-text" /></td>
+        </tr>
+        <tr>
+            <th><label for="fim"><?php _e('Fim', 'agert'); ?></label></th>
+            <td><input type="date" id="fim" name="fim" value="<?php echo esc_attr($fim); ?>" class="regular-text" /></td>
+        </tr>
+        <tr>
+            <th><label for="prestador"><?php _e('Prestador de Serviço', 'agert'); ?></label></th>
+            <td><input type="text" id="prestador" name="prestador" value="<?php echo esc_attr($prestador); ?>" class="regular-text" /></td>
+        </tr>
+        <tr>
+            <th><label for="atividade"><?php _e('Atividade/Local', 'agert'); ?></label></th>
+            <td><input type="text" id="atividade" name="atividade" value="<?php echo esc_attr($atividade); ?>" class="regular-text" /></td>
+        </tr>
+        <tr>
+            <th><label for="modalidade"><?php _e('Modalidade', 'agert'); ?></label></th>
+            <td><input type="text" id="modalidade" name="modalidade" value="<?php echo esc_attr($modalidade); ?>" class="regular-text" /></td>
+        </tr>
+        <tr>
+            <th><label for="responsavel"><?php _e('Responsável', 'agert'); ?></label></th>
+            <td><input type="text" id="responsavel" name="responsavel" value="<?php echo esc_attr($responsavel); ?>" class="regular-text" /></td>
+        </tr>
+        <tr>
+            <th><label for="objetivo"><?php _e('Objetivo', 'agert'); ?></label></th>
+            <td><textarea id="objetivo" name="objetivo" rows="4" class="large-text"><?php echo esc_textarea($objetivo); ?></textarea></td>
+        </tr>
+    </table>
+    <?php
+}
+
+/**
  * Callback para meta box do Vídeo de Reunião
  */
 function agert_reuniao_video_meta_box_callback($post) {
@@ -458,7 +542,26 @@ function agert_save_meta_boxes($post_id) {
             update_post_meta($post_id, '_reuniao_id', intval($_POST['reuniao_id']));
         }
     }
-    
+
+    // Salvar meta da agenda fiscal
+    if (isset($_POST['agenda_fiscal_meta_nonce']) && wp_verify_nonce($_POST['agenda_fiscal_meta_nonce'], 'agert_agenda_fiscal_meta_nonce')) {
+        $map = array(
+            'inicio'      => '_inicio',
+            'fim'         => '_fim',
+            'prestador'   => '_prestador',
+            'atividade'   => '_atividade',
+            'modalidade'  => '_modalidade',
+            'responsavel' => '_responsavel',
+            'objetivo'    => '_objetivo',
+        );
+        foreach ($map as $field => $meta_key) {
+            if (isset($_POST[$field])) {
+                $value = ('objetivo' === $field) ? sanitize_textarea_field($_POST[$field]) : sanitize_text_field($_POST[$field]);
+                update_post_meta($post_id, $meta_key, $value);
+            }
+        }
+    }
+
     // Salvar meta do vídeo de reunião
     if (isset($_POST['reuniao_video_meta_nonce']) && wp_verify_nonce($_POST['reuniao_video_meta_nonce'], 'agert_reuniao_video_meta_nonce')) {
         if (isset($_POST['reuniao_relacionada'])) {
