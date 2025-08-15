@@ -120,4 +120,15 @@ body.post-type-archive-reuniao {
 .video-empty p {
     color: var(--muted);
     margin: 0;
+=======
+.reunioes-info {
+    display: grid;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .reunioes-info {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
 }

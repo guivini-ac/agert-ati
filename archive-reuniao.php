@@ -277,4 +277,14 @@ switch ($tab) {
 }
 ?>
 </div>
+<section class="container py-5 reunioes-info">
+    <div class="card-soft p-4 mb-4">
+        <h2 class="h5 mb-3">Informações Gerais das Reuniões</h2>
+        <p>As reuniões ordinárias do Conselho são realizadas regularmente e seus documentos oficiais são disponibilizados nesta página para consulta pública.</p>
+    </div>
+    <div class="card-soft p-4">
+        <h2 class="h5 mb-3">Participação Pública</h2>
+        <p>O público pode acompanhar as sessões e enviar contribuições por meio dos canais disponibilizados. Incentivamos a participação ativa da sociedade nas discussões.</p>
+    </div>
+</section>
 <?php get_footer(); ?>
