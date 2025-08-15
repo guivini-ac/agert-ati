@@ -60,6 +60,15 @@ body.post-type-archive-reuniao {
     border-radius:10px;
 }
 
+.tabbar .nav-link.active {
+    background:var(--white);
+    color:var(--brand);
+}
+
+.page-reunioes .tab-content {
+    margin-top:1.5rem;
+}
+
 .duration-badge {
     position:absolute;
     right:.5rem;
@@ -120,7 +129,8 @@ body.post-type-archive-reuniao {
 .video-empty p {
     color: var(--muted);
     margin: 0;
-=======
+}
+
 .reunioes-info {
     display: grid;
     gap: 1.5rem;
