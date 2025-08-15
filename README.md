@@ -18,3 +18,12 @@ Para instruções detalhadas de instalação e requisitos, consulte o [INSTALL.m
 ## Desenvolvimento
 O tema utiliza apenas PHP, HTML, CSS e JavaScript simples. Nenhum build step adicional é necessário.
 
+## Assets
+Os arquivos do Bootstrap, Bootstrap Icons e das fontes Poppins não são versionados. Antes de desenvolver ou implantar, execute:
+
+```bash
+./scripts/fetch-assets.sh
+```
+
+Isso criará `assets/vendor/` com as dependências. Caso não execute o script, o tema fará uso das CDNs oficiais como fallback.
+
