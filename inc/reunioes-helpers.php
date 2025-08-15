@@ -379,95 +379,6 @@ function agert_coletar_videos(array $p): array {
         'pages' => 1
     );
 }
-        case 'data_asc':
-            $query_args['orderby']   = 'meta_value';
-            $query_args['meta_key']  = 'data_hora';
-            $query_args['order']     = 'ASC';
-            $query_args['meta_type'] = 'DATETIME';
-            break;
-        case 'titulo_az':
-            $query_args['orderby'] = 'title';
-            $query_args['order']   = 'ASC';
-            break;
-        case 'titulo_za':
-            $query_args['orderby'] = 'title';
-            $query_args['order']   = 'DESC';
-            break;
-        case 'data_desc':
-        default:
-            $query_args['orderby']   = 'meta_value';
-            $query_args['meta_key']  = 'data_hora';
-            $query_args['order']     = 'DESC';
-            $query_args['meta_type'] = 'DATETIME';
-            break;
-    }
-
-    if ($args['fields']) {
-        $query_args['fields'] = $args['fields'];
-    }
-
-    return new WP_Query($query_args);
-}
-
-/**
- * Coleta documentos agregados das reuniões filtradas.
- *
- * @param array $args Filtros para agert_query_reunioes_filtradas.
- * @return array {results,total,pages}
- */
-function agert_coletar_documentos(array $args): array {
-    $per_page = $args['posts_per_page'] ?? 10;
-    $q = agert_query_reunioes_filtradas(array_merge($args, array(
-        'status' => 'docs',
-        'posts_per_page' => -1,
-        'paged' => 1,
-    )));
-    $results = array();
-    if ($q->have_posts()) {
-        foreach ($q->posts as $p) {
-            $docs = agert_meta($p->ID, 'documentos', array());
-            if (is_array($docs)) {
-                foreach ($docs as $d) {
-                    if (!empty($d['arquivo_id']) || !empty($d['arquivo_url'])) {
-                        $results[] = array('doc' => $d, 'meeting' => $p);
-                    }
-                }
-            }
-        }
-    }
-    $total = count($results);
-    $pages = $per_page > 0 ? (int) ceil($total / $per_page) : 1;
-    return array('results' => $results, 'total' => $total, 'pages' => $pages);
-}
-
-/**
- * Coleta vídeos agregados das reuniões filtradas.
- *
- * @param array $args Filtros.
- * @return array {results,total,pages}
- */
-function agert_coletar_videos(array $args): array {
-    $per_page = $args['posts_per_page'] ?? 9;
-    $q = agert_query_reunioes_filtradas(array_merge($args, array(
-        'status' => 'video',
-        'posts_per_page' => -1,
-        'paged' => 1,
-    )));
-    $results = array();
-    if ($q->have_posts()) {
-        foreach ($q->posts as $p) {
-            $videos = agert_meta($p->ID, 'videos', array());
-            if (is_array($videos)) {
-                foreach ($videos as $v) {
-                    $results[] = array('video' => $v, 'meeting' => $p);
-                }
-            }
-        }
-    }
-    $total = count($results);
-    $pages = $per_page > 0 ? (int) ceil($total / $per_page) : 1;
-    return array('results' => $results, 'total' => $total, 'pages' => $pages);
-}
 
 /**
  * Cria dados de exemplo se não existirem reuniões.
@@ -533,3 +444,4 @@ function agert_seed_demo_if_empty() {
         'duracao_segundos' => 120,
         'descricao' => 'Transmissão de exemplo.',
     )));
+}
