@@ -1,0 +1,1141 @@
+# Copyright (C) 2025 AGERT Timon
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: AGERT - Tema Oficial 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/agert-ati\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-08-15T15:03:12+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: agert\n"
+
+#. Theme Name of the theme
+#: style.css
+msgid "AGERT - Tema Oficial"
+msgstr ""
+
+#. Description of the theme
+#: style.css
+msgid "Tema oficial da Agência Reguladora de Serviços Públicos Delegados do Município de Timon. Sistema completo para gerenciamento de reuniões, anexos e participantes com Bootstrap 5."
+msgstr ""
+
+#. Author of the theme
+#: style.css
+msgid "AGERT Timon"
+msgstr ""
+
+#: 404.php:21
+msgid "Página não encontrada"
+msgstr ""
+
+#: 404.php:24
+msgid "Desculpe, a página que você está procurando não existe ou foi movida. Isso pode ter acontecido por diversos motivos."
+msgstr ""
+
+#: 404.php:29
+msgid "Tente buscar pelo conteúdo:"
+msgstr ""
+
+#: 404.php:35
+#: search.php:207
+#: search.php:249
+msgid "Digite sua pesquisa..."
+msgstr ""
+
+#: 404.php:37
+#: search.php:210
+msgid "Buscar por:"
+msgstr ""
+
+#: 404.php:40
+#: index.php:140
+#: page-reunioes.php:174
+#: search.php:213
+msgid "Buscar"
+msgstr ""
+
+#: 404.php:49
+msgid "Ou navegue para uma dessas páginas:"
+msgstr ""
+
+#: 404.php:55
+msgid "Página Inicial"
+msgstr ""
+
+#. Template Name of the theme
+#: 404.php:62
+#: footer.php:41
+#: front-page.php:53
+#: index.php:160
+#: page-sobre.php:52
+#: search.php:311
+msgid "Sobre a AGERT"
+msgstr ""
+
+#: 404.php:69
+#: footer.php:46
+#: front-page.php:59
+#: inc/post-types.php:20
+#: inc/post-types.php:22
+#: index.php:164
+#: page-reunioes.php:71
+#: search.php:277
+msgid "Reuniões"
+msgstr ""
+
+#: 404.php:76
+#: footer.php:21
+#: footer.php:51
+#: front-page.php:71
+#: index.php:168
+#: search.php:315
+msgid "Contato"
+msgstr ""
+
+#: 404.php:85
+msgid "Se você acredita que isso é um erro, por favor"
+msgstr ""
+
+#: 404.php:87
+msgid "entre em contato conosco"
+msgstr ""
+
+#: 404.php:102
+msgid "Páginas Mais Acessadas"
+msgstr ""
+
+#: 404.php:155
+msgid "Nenhuma página popular encontrada."
+msgstr ""
+
+#: archive-agenda_fiscal.php:21
+msgid "Planejamento das Fiscalizações"
+msgstr ""
+
+#: archive-agenda_fiscal.php:27
+#: inc/post-types.php:407
+#: inc/template-functions.php:93
+msgid "Início"
+msgstr ""
+
+#: archive-agenda_fiscal.php:28
+#: inc/post-types.php:411
+msgid "Fim"
+msgstr ""
+
+#: archive-agenda_fiscal.php:29
+#: inc/post-types.php:415
+msgid "Prestador de Serviço"
+msgstr ""
+
+#: archive-agenda_fiscal.php:30
+#: inc/post-types.php:419
+msgid "Atividade/Local"
+msgstr ""
+
+#: archive-agenda_fiscal.php:31
+#: inc/post-types.php:423
+msgid "Modalidade"
+msgstr ""
+
+#: archive-agenda_fiscal.php:32
+#: inc/post-types.php:427
+msgid "Responsável"
+msgstr ""
+
+#: archive-agenda_fiscal.php:33
+#: inc/post-types.php:431
+msgid "Objetivo"
+msgstr ""
+
+#: archive-agenda_fiscal.php:52
+msgid "Nenhuma programação encontrada."
+msgstr ""
+
+#: archive-reuniao.php:240
+msgid "Nenhum vídeo encontrado para os filtros aplicados."
+msgstr ""
+
+#: archive-reuniao.php:273
+msgid "Nenhuma reunião encontrada para os filtros aplicados."
+msgstr ""
+
+#: archive.php:22
+msgid "Ler mais"
+msgstr ""
+
+#: archive.php:29
+#: index.php:102
+#: page-anexos.php:99
+#: page-participantes.php:95
+#: page-reunioes.php:126
+#: search.php:186
+msgid "Anterior"
+msgstr ""
+
+#: archive.php:30
+#: index.php:103
+#: page-anexos.php:100
+#: page-participantes.php:96
+#: page-reunioes.php:127
+#: search.php:187
+msgid "Próxima"
+msgstr ""
+
+#: archive.php:33
+msgid "Nenhum conteúdo encontrado."
+msgstr ""
+
+#: footer.php:15
+msgid "AGERT"
+msgstr ""
+
+#: footer.php:16
+#: front-page.php:17
+msgid "Agência Reguladora de Serviços Públicos Delegados do Município de Timon"
+msgstr ""
+
+#: footer.php:17
+msgid "Garantindo qualidade e eficiência dos serviços públicos com transparência."
+msgstr ""
+
+#: footer.php:24
+msgid "(99) 3212-3456"
+msgstr ""
+
+#: footer.php:28
+msgid "contato@agert.timon.ma.gov.br"
+msgstr ""
+
+#: footer.php:32
+msgid "Rua dos Reguladores, 123 - Centro<br>Timon/MA - CEP: 65630-100"
+msgstr ""
+
+#: footer.php:37
+#: index.php:153
+#: page-reunioes.php:196
+#: search.php:300
+msgid "Links Úteis"
+msgstr ""
+
+#: footer.php:56
+msgid "Prefeitura de Timon"
+msgstr ""
+
+#: footer.php:61
+msgid "Política de Privacidade"
+msgstr ""
+
+#: footer.php:73
+msgid "AGERT Timon. Todos os direitos reservados."
+msgstr ""
+
+#: footer.php:79
+msgid "Horário de funcionamento: Seg-Sex, 08:00 às 17:00"
+msgstr ""
+
+#: front-page.php:20
+msgid "Garantindo a qualidade e eficiência dos serviços públicos delegados, com transparência e compromisso com o cidadão timonense."
+msgstr ""
+
+#: front-page.php:25
+msgid "Conheça a AGERT"
+msgstr ""
+
+#: front-page.php:43
+msgid "Acesso Rápido"
+msgstr ""
+
+#: front-page.php:44
+msgid "Principais funcionalidades do sistema"
+msgstr ""
+
+#: front-page.php:54
+msgid "Conheça nossa missão, visão e estrutura organizacional"
+msgstr ""
+
+#: front-page.php:60
+msgid "Acompanhe e gerencie as reuniões da agência"
+msgstr ""
+
+#. Template Name of the theme
+#: front-page.php:65
+#: functions.php:210
+#: page-presidente.php:50
+msgid "Presidente"
+msgstr ""
+
+#: front-page.php:66
+msgid "Conheça o presidente da AGERT e sua trajetória"
+msgstr ""
+
+#: front-page.php:72
+msgid "Entre em contato através dos canais oficiais"
+msgstr ""
+
+#: front-page.php:88
+msgid "Acessar"
+msgstr ""
+
+#: front-page.php:104
+msgid "Últimas Reuniões"
+msgstr ""
+
+#: front-page.php:105
+msgid "Acompanhe as reuniões mais recentes"
+msgstr ""
+
+#: front-page.php:109
+msgid "Ver Todas"
+msgstr ""
+
+#: front-page.php:167
+#, php-format
+msgid "%d anexos, %d participantes"
+msgstr ""
+
+#: front-page.php:174
+#: search.php:170
+msgid "Ver detalhes"
+msgstr ""
+
+#: front-page.php:188
+#: inc/post-types.php:30
+#: page-reunioes.php:137
+msgid "Nenhuma reunião encontrada"
+msgstr ""
+
+#: front-page.php:189
+#: page-reunioes.php:138
+msgid "Ainda não há reuniões cadastradas no sistema."
+msgstr ""
+
+#: front-page.php:193
+#: page-reunioes.php:142
+msgid "Criar primeira reunião"
+msgstr ""
+
+#: front-page.php:209
+msgid "Transparência e Eficiência"
+msgstr ""
+
+#: front-page.php:211
+msgid "A AGERT trabalha com transparência total, disponibilizando todas as informações sobre reuniões, decisões e atividades para a população timonense."
+msgstr ""
+
+#: front-page.php:216
+msgid "Ver todas as reuniões"
+msgstr ""
+
+#: front-page.php:220
+msgid "Entre em contato"
+msgstr ""
+
+#: functions.php:42
+msgid "Menu Principal"
+msgstr ""
+
+#: functions.php:56
+msgid "Sidebar"
+msgstr ""
+
+#: header.php:14
+msgid "Pular para o conteúdo"
+msgstr ""
+
+#: header.php:35
+msgid "Navegação principal"
+msgstr ""
+
+#: inc/admin-reunioes.php:18
+#: inc/admin-reunioes.php:110
+msgid "Vídeos"
+msgstr ""
+
+#: inc/admin-reunioes.php:37
+#: page-anexos.php:79
+#: page-anexos.php:119
+msgid "Título"
+msgstr ""
+
+#: inc/admin-reunioes.php:38
+#: inc/post-types.php:288
+#: inc/post-types.php:610
+msgid "URL do Vídeo"
+msgstr ""
+
+#: inc/admin-reunioes.php:39
+msgid "Duração (seg)"
+msgstr ""
+
+#: inc/admin-reunioes.php:40
+msgid "Descrição"
+msgstr ""
+
+#: inc/admin-reunioes.php:56
+msgid "Adicionar vídeo"
+msgstr ""
+
+#: inc/admin-reunioes.php:111
+#: inc/post-types.php:49
+#: inc/post-types.php:51
+#: page-anexos.php:57
+#: search.php:278
+msgid "Anexos"
+msgstr ""
+
+#: inc/post-types.php:21
+#: inc/post-types.php:375
+#: inc/post-types.php:609
+#: page-anexos.php:80
+#: page-anexos.php:127
+#: page-participantes.php:75
+#: page-participantes.php:127
+msgid "Reunião"
+msgstr ""
+
+#: inc/post-types.php:23
+#: inc/post-types.php:26
+#: page-reunioes.php:77
+#: page-reunioes.php:230
+msgid "Nova Reunião"
+msgstr ""
+
+#: inc/post-types.php:24
+msgid "Adicionar Nova Reunião"
+msgstr ""
+
+#: inc/post-types.php:25
+msgid "Editar Reunião"
+msgstr ""
+
+#: inc/post-types.php:27
+msgid "Ver Reunião"
+msgstr ""
+
+#: inc/post-types.php:28
+msgid "Ver Reuniões"
+msgstr ""
+
+#: inc/post-types.php:29
+msgid "Buscar Reuniões"
+msgstr ""
+
+#: inc/post-types.php:31
+msgid "Nenhuma reunião encontrada na lixeira"
+msgstr ""
+
+#: inc/post-types.php:32
+#: search.php:307
+msgid "Todas as Reuniões"
+msgstr ""
+
+#: inc/post-types.php:33
+#: page-reunioes.php:202
+msgid "Arquivo de Reuniões"
+msgstr ""
+
+#: inc/post-types.php:50
+msgid "Anexo"
+msgstr ""
+
+#: inc/post-types.php:52
+#: inc/post-types.php:55
+#: page-anexos.php:60
+#: page-anexos.php:114
+msgid "Novo Anexo"
+msgstr ""
+
+#: inc/post-types.php:53
+msgid "Adicionar Novo Anexo"
+msgstr ""
+
+#: inc/post-types.php:54
+msgid "Editar Anexo"
+msgstr ""
+
+#: inc/post-types.php:56
+msgid "Ver Anexo"
+msgstr ""
+
+#: inc/post-types.php:57
+msgid "Ver Anexos"
+msgstr ""
+
+#: inc/post-types.php:58
+msgid "Buscar Anexos"
+msgstr ""
+
+#: inc/post-types.php:59
+msgid "Nenhum anexo encontrado"
+msgstr ""
+
+#: inc/post-types.php:60
+msgid "Nenhum anexo encontrado na lixeira"
+msgstr ""
+
+#: inc/post-types.php:61
+msgid "Todos os Anexos"
+msgstr ""
+
+#: inc/post-types.php:77
+#: inc/post-types.php:79
+#: page-participantes.php:50
+#: search.php:279
+msgid "Participantes"
+msgstr ""
+
+#: inc/post-types.php:78
+msgid "Participante"
+msgstr ""
+
+#: inc/post-types.php:80
+#: inc/post-types.php:83
+#: page-participantes.php:53
+#: page-participantes.php:110
+msgid "Novo Participante"
+msgstr ""
+
+#: inc/post-types.php:81
+msgid "Adicionar Novo Participante"
+msgstr ""
+
+#: inc/post-types.php:82
+msgid "Editar Participante"
+msgstr ""
+
+#: inc/post-types.php:84
+msgid "Ver Participante"
+msgstr ""
+
+#: inc/post-types.php:85
+msgid "Ver Participantes"
+msgstr ""
+
+#: inc/post-types.php:86
+msgid "Buscar Participantes"
+msgstr ""
+
+#: inc/post-types.php:87
+msgid "Nenhum participante encontrado"
+msgstr ""
+
+#: inc/post-types.php:88
+msgid "Nenhum participante encontrado na lixeira"
+msgstr ""
+
+#: inc/post-types.php:89
+msgid "Todos os Participantes"
+msgstr ""
+
+#: inc/post-types.php:105
+#: inc/post-types.php:106
+#: inc/post-types.php:107
+msgid "Agenda Fiscal"
+msgstr ""
+
+#: inc/post-types.php:108
+#: inc/post-types.php:111
+msgid "Nova Programação"
+msgstr ""
+
+#: inc/post-types.php:109
+msgid "Adicionar Programação"
+msgstr ""
+
+#: inc/post-types.php:110
+msgid "Editar Programação"
+msgstr ""
+
+#: inc/post-types.php:112
+msgid "Ver Programação"
+msgstr ""
+
+#: inc/post-types.php:113
+msgid "Buscar Programações"
+msgstr ""
+
+#: inc/post-types.php:114
+msgid "Nenhuma programação encontrada"
+msgstr ""
+
+#: inc/post-types.php:115
+msgid "Nenhuma programação encontrada na lixeira"
+msgstr ""
+
+#: inc/post-types.php:116
+msgid "Todas as Programações"
+msgstr ""
+
+#: inc/post-types.php:137
+#: inc/post-types.php:139
+msgid "Vídeos de Reuniões"
+msgstr ""
+
+#: inc/post-types.php:138
+msgid "Vídeo de Reunião"
+msgstr ""
+
+#: inc/post-types.php:140
+#: inc/post-types.php:143
+msgid "Novo Vídeo"
+msgstr ""
+
+#: inc/post-types.php:141
+msgid "Adicionar Novo Vídeo"
+msgstr ""
+
+#: inc/post-types.php:142
+msgid "Editar Vídeo"
+msgstr ""
+
+#: inc/post-types.php:144
+msgid "Ver Vídeo"
+msgstr ""
+
+#: inc/post-types.php:145
+msgid "Buscar Vídeos"
+msgstr ""
+
+#: inc/post-types.php:146
+msgid "Nenhum vídeo encontrado"
+msgstr ""
+
+#: inc/post-types.php:147
+msgid "Nenhum vídeo encontrado na lixeira"
+msgstr ""
+
+#: inc/post-types.php:148
+msgid "Todos os Vídeos"
+msgstr ""
+
+#: inc/post-types.php:169
+#: inc/post-types.php:177
+msgid "Tipos de Reunião"
+msgstr ""
+
+#: inc/post-types.php:170
+#: page-reunioes.php:158
+#: page-reunioes.php:248
+msgid "Tipo de Reunião"
+msgstr ""
+
+#: inc/post-types.php:171
+msgid "Buscar Tipos"
+msgstr ""
+
+#: inc/post-types.php:172
+msgid "Todos os Tipos"
+msgstr ""
+
+#: inc/post-types.php:173
+msgid "Editar Tipo"
+msgstr ""
+
+#: inc/post-types.php:174
+msgid "Atualizar Tipo"
+msgstr ""
+
+#: inc/post-types.php:175
+msgid "Adicionar Novo Tipo"
+msgstr ""
+
+#: inc/post-types.php:176
+msgid "Novo Tipo"
+msgstr ""
+
+#: inc/post-types.php:192
+msgid "Status das Reuniões"
+msgstr ""
+
+#: inc/post-types.php:193
+#: inc/post-types.php:194
+msgid "Status"
+msgstr ""
+
+#: inc/post-types.php:214
+msgid "Detalhes da Reunião"
+msgstr ""
+
+#: inc/post-types.php:224
+msgid "Detalhes do Anexo"
+msgstr ""
+
+#: inc/post-types.php:234
+msgid "Detalhes do Participante"
+msgstr ""
+
+#: inc/post-types.php:244
+msgid "Detalhes da Programação"
+msgstr ""
+
+#: inc/post-types.php:254
+msgid "Detalhes do Vídeo"
+msgstr ""
+
+#: inc/post-types.php:276
+msgid "Data e Hora"
+msgstr ""
+
+#: inc/post-types.php:280
+#: page-reunioes.php:264
+msgid "Local"
+msgstr ""
+
+#: inc/post-types.php:284
+#: page-reunioes.php:269
+msgid "Pauta"
+msgstr ""
+
+#: inc/post-types.php:291
+msgid "Link do vídeo da reunião (YouTube, etc.)"
+msgstr ""
+
+#: inc/post-types.php:318
+#: page-anexos.php:81
+#: page-anexos.php:123
+msgid "Arquivo"
+msgstr ""
+
+#: inc/post-types.php:321
+msgid "URL do arquivo anexo (PDF, imagem, etc.)"
+msgstr ""
+
+#: inc/post-types.php:325
+msgid "Reunião Relacionada"
+msgstr ""
+
+#: inc/post-types.php:328
+#: inc/post-types.php:378
+#: inc/post-types.php:462
+#: inc/template-functions.php:238
+msgid "Selecione uma reunião"
+msgstr ""
+
+#: inc/post-types.php:363
+msgid "Nome do Participante"
+msgstr ""
+
+#: inc/post-types.php:367
+#: page-participantes.php:73
+#: page-participantes.php:119
+msgid "Cargo"
+msgstr ""
+
+#: inc/post-types.php:371
+#: page-contato.php:57
+#: page-participantes.php:74
+#: page-participantes.php:123
+msgid "E-mail"
+msgstr ""
+
+#: inc/post-types.php:459
+msgid "Reunião Relacionada *"
+msgstr ""
+
+#: inc/post-types.php:478
+msgid "URL do Vídeo *"
+msgstr ""
+
+#: inc/post-types.php:481
+msgid "URL do YouTube, Vimeo ou outro serviço de vídeo"
+msgstr ""
+
+#: inc/post-types.php:485
+msgid "Duração (segundos)"
+msgstr ""
+
+#: inc/post-types.php:488
+msgid "Duração do vídeo em segundos (opcional)"
+msgstr ""
+
+#: inc/post-types.php:611
+msgid "Duração"
+msgstr ""
+
+#: inc/security.php:34
+msgid "Tipo de arquivo não permitido."
+msgstr ""
+
+#: inc/security.php:38
+msgid "Arquivo muito grande. Máximo 10MB."
+msgstr ""
+
+#: inc/template-functions.php:195
+msgid "Reunião criada com sucesso!"
+msgstr ""
+
+#: inc/template-functions.php:198
+msgid "Anexo adicionado com sucesso!"
+msgstr ""
+
+#: inc/template-functions.php:201
+msgid "Participante registrado com sucesso!"
+msgstr ""
+
+#: inc/template-functions.php:204
+msgid "Erro ao processar solicitação. Tente novamente."
+msgstr ""
+
+#: inc/template-functions.php:303
+msgid "Sem data definida"
+msgstr ""
+
+#: inc/template-functions.php:310
+msgid "Agendada"
+msgstr ""
+
+#: inc/template-functions.php:312
+msgid "Em andamento/Hoje"
+msgstr ""
+
+#: inc/template-functions.php:314
+msgid "Realizada"
+msgstr ""
+
+#: index.php:21
+#: search.php:18
+#, php-format
+msgid "Resultados da busca por: %s"
+msgstr ""
+
+#: index.php:88
+msgid "Leia mais"
+msgstr ""
+
+#: index.php:112
+msgid "Nada encontrado"
+msgstr ""
+
+#: index.php:116
+#: search.php:198
+msgid "Não foi possível encontrar resultados para sua busca. Tente novamente com palavras diferentes."
+msgstr ""
+
+#: index.php:121
+msgid "Parece que não conseguimos encontrar o que você está procurando."
+msgstr ""
+
+#: page-anexos.php:40
+msgid "Preencha todos os campos."
+msgstr ""
+
+#: page-anexos.php:43
+#: page-participantes.php:36
+msgid "Permissão negada."
+msgstr ""
+
+#: page-anexos.php:92
+msgid "Baixar"
+msgstr ""
+
+#: page-anexos.php:103
+msgid "Nenhum anexo encontrado."
+msgstr ""
+
+#: page-anexos.php:134
+#: page-participantes.php:134
+#: page-reunioes.php:282
+msgid "Cancelar"
+msgstr ""
+
+#: page-anexos.php:135
+#: page-participantes.php:135
+msgid "Salvar"
+msgstr ""
+
+#: page-contato.php:22
+#, php-format
+msgid "Contato de %s"
+msgstr ""
+
+#: page-contato.php:26
+msgid "Mensagem enviada com sucesso!"
+msgstr ""
+
+#: page-contato.php:28
+msgid "Ocorreu um erro ao enviar a mensagem."
+msgstr ""
+
+#: page-contato.php:31
+msgid "Por favor, preencha os campos obrigatórios."
+msgstr ""
+
+#: page-contato.php:34
+msgid "Falha na validação do formulário."
+msgstr ""
+
+#: page-contato.php:53
+#: page-participantes.php:72
+#: page-participantes.php:115
+msgid "Nome"
+msgstr ""
+
+#: page-contato.php:61
+msgid "Telefone"
+msgstr ""
+
+#: page-contato.php:65
+msgid "Mensagem"
+msgstr ""
+
+#: page-contato.php:68
+msgid "Enviar"
+msgstr ""
+
+#: page-contato.php:73
+msgid "Informações de Contato"
+msgstr ""
+
+#: page-participantes.php:33
+msgid "Preencha todos os campos obrigatórios."
+msgstr ""
+
+#: page-participantes.php:99
+msgid "Nenhum participante encontrado."
+msgstr ""
+
+#: page-presidente.php:56
+#, php-format
+msgid "Foto de %s"
+msgstr ""
+
+#: page-presidente.php:56
+msgid "Foto do presidente"
+msgstr ""
+
+#: page-presidente.php:59
+msgid "Sem foto"
+msgstr ""
+
+#: page-presidente.php:73
+msgid "Mandato:"
+msgstr ""
+
+#: page-presidente.php:76
+msgid "Formação:"
+msgstr ""
+
+#: page-presidente.php:79
+msgid "Especialização:"
+msgstr ""
+
+#: page-presidente.php:86
+msgid "Biografia"
+msgstr ""
+
+#: page-presidente.php:93
+msgid "Experiência Profissional"
+msgstr ""
+
+#: page-presidente.php:115
+msgid "Formação Acadêmica"
+msgstr ""
+
+#: page-presidente.php:137
+msgid "Mensagem do Presidente"
+msgstr ""
+
+#: page-reunioes.php:48
+msgid "Por favor, preencha todos os campos obrigatórios."
+msgstr ""
+
+#: page-reunioes.php:51
+msgid "Você não tem permissão para criar reuniões ou o nonce é inválido."
+msgstr ""
+
+#: page-reunioes.php:72
+msgid "Gerencie as reuniões da AGERT"
+msgstr ""
+
+#: page-reunioes.php:118
+msgid "Navegação de páginas"
+msgstr ""
+
+#: page-reunioes.php:153
+msgid "Filtros"
+msgstr ""
+
+#: page-reunioes.php:160
+msgid "Todos os tipos"
+msgstr ""
+
+#: page-reunioes.php:175
+msgid "Digite para buscar..."
+msgstr ""
+
+#: page-reunioes.php:180
+msgid "Filtrar"
+msgstr ""
+
+#: page-reunioes.php:186
+#: parts/reunioes/empty-state.php:15
+msgid "Limpar filtros"
+msgstr ""
+
+#: page-reunioes.php:206
+msgid "Gerenciar Anexos"
+msgstr ""
+
+#: page-reunioes.php:210
+msgid "Gerenciar Participantes"
+msgstr ""
+
+#: page-reunioes.php:238
+msgid "Título da Reunião *"
+msgstr ""
+
+#: page-reunioes.php:243
+msgid "Data e Hora *"
+msgstr ""
+
+#: page-reunioes.php:250
+msgid "Selecione o tipo"
+msgstr ""
+
+#: page-reunioes.php:265
+msgid "Ex: Sede da AGERT - Sala de Reuniões"
+msgstr ""
+
+#: page-reunioes.php:270
+msgid "Descreva os principais pontos da reunião..."
+msgstr ""
+
+#: page-reunioes.php:274
+msgid "Descrição/Observações"
+msgstr ""
+
+#: page-reunioes.php:275
+msgid "Informações adicionais sobre a reunião..."
+msgstr ""
+
+#: page-reunioes.php:286
+msgid "Criar Reunião"
+msgstr ""
+
+#: page-reunioes.php:301
+msgid "Login Necessário"
+msgstr ""
+
+#: page-reunioes.php:307
+msgid "Para criar reuniões, você precisa estar logado e ter as permissões necessárias."
+msgstr ""
+
+#: page-reunioes.php:312
+msgid "Fazer Login"
+msgstr ""
+
+#: page-sobre.php:56
+#: page-sobre.php:77
+#: page-sobre.php:102
+msgid "Preencha os campos em Aparência › Campos/Meta"
+msgstr ""
+
+#: page-sobre.php:60
+msgid "Nossos Valores"
+msgstr ""
+
+#: page-sobre.php:81
+msgid "Estrutura Organizacional"
+msgstr ""
+
+#: page.php:37
+#: single.php:59
+msgid "Páginas:"
+msgstr ""
+
+#: page.php:52
+msgid "Editar página"
+msgstr ""
+
+#: parts/reunioes/empty-state.php:13
+msgid "Nenhum resultado encontrado."
+msgstr ""
+
+#: search.php:29
+#, php-format
+msgid "Encontrado %d resultado"
+msgid_plural "Encontrados %d resultados"
+msgstr[0] ""
+msgstr[1] ""
+
+#: search.php:136
+msgid "Relacionado à reunião:"
+msgstr ""
+
+#: search.php:196
+msgid "Nenhum resultado encontrado"
+msgstr ""
+
+#: search.php:221
+msgid "Sugestões:"
+msgstr ""
+
+#: search.php:241
+msgid "Refinar Busca"
+msgstr ""
+
+#: search.php:255
+msgid "Buscar Novamente"
+msgstr ""
+
+#: search.php:266
+msgid "Filtrar por Tipo"
+msgstr ""
+
+#: search.php:275
+msgid "Posts"
+msgstr ""
+
+#: search.php:276
+msgid "Páginas"
+msgstr ""
+
+#: single.php:76
+msgid "Editar post"
+msgstr ""
+
+#: single.php:90
+msgid "Compartilhar:"
+msgstr ""
+
+#: single.php:94
+msgid "Compartilhar no Facebook"
+msgstr ""
+
+#: single.php:100
+msgid "Compartilhar no Twitter"
+msgstr ""
+
+#: single.php:106
+msgid "Compartilhar no WhatsApp"
+msgstr ""
+
+#: single.php:116
+msgid "Navegação entre posts"
+msgstr ""
+
+#: single.php:124
+msgid "Post anterior"
+msgstr ""
+
+#: single.php:134
+msgid "Próximo post"
+msgstr ""
+
+#: single.php:169
+msgid "Posts Relacionados"
+msgstr ""
+
+#: single.php:195
+msgid "Categorias"
+msgstr ""
+
+#: template-parts/reunioes/meeting-card.php:55
+msgid "Ver Detalhes"
+msgstr ""
