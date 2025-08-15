@@ -22,73 +22,67 @@ if (have_posts()) :
     while (have_posts()) : the_post();
         $post_id          = get_the_ID();
         $foto_id          = agert_meta($post_id, 'foto_presidente_id');
-        $nome             = agert_meta($post_id, 'nome_presidente', 'Dr. João Carlos Silva Santos');
-        $cargo_titulo     = agert_meta($post_id, 'cargo_titulo', 'Presidente da AGERT');
-        $mandato          = agert_meta($post_id, 'mandato_periodo', '2020–2025');
-        $formacao         = agert_meta($post_id, 'formacao', 'Direito');
-        $especializacao   = agert_meta($post_id, 'especializacao', 'Administração Pública');
-        $bio_breve        = agert_meta($post_id, 'bio_breve', 'Líder experiente no setor público, com sólida formação jurídica e ampla vivência em administração pública. Atua com foco na transparência, eficiência e modernização dos serviços regulados, sempre priorizando o interesse público e o bem-estar da população timonense.');
-        $experiencias     = agert_meta($post_id, 'experiencias', array(
-            array('cargo' => 'Diretor Jurídico', 'orgao' => 'Prefeitura Municipal de Timon', 'periodo' => '2016-2020'),
-            array('cargo' => 'Conselheiro', 'orgao' => 'Conselho Municipal de Desenvolvimento', 'periodo' => '2014-2016'),
-            array('cargo' => 'Procurador Municipal', 'orgao' => 'Procuradoria Geral do Município', 'periodo' => '2010-2014'),
-            array('cargo' => 'Advogado Sênior', 'orgao' => 'Escritório de Advocacia', 'periodo' => '2005-2010'),
-            array('cargo' => 'Assessor Jurídico', 'orgao' => 'Câmara Municipal de Timon', 'periodo' => '2000-2005'),
-        ));
-        $formacoes        = agert_meta($post_id, 'formacoes', array(
-            array('curso' => 'Graduação em Direito', 'instituicao' => 'Universidade Federal do Maranhão', 'ano' => '1998'),
-            array('curso' => 'Especialização em Direito Administrativo', 'instituicao' => 'Universidade Católica de Brasília', 'ano' => '2003'),
-            array('curso' => 'MBA em Gestão Pública', 'instituicao' => 'Fundação Getúlio Vargas', 'ano' => '2008'),
-        ));
-        $mensagem         = agert_meta($post_id, 'mensagem', 'A AGERT tem o compromisso de regular os serviços públicos delegados com transparência, eficiência e sempre priorizando o interesse da população timonense. Trabalhamos para garantir que os serviços essenciais sejam prestados com qualidade, acessibilidade e tarifas justas, contribuindo para o desenvolvimento sustentável de nossa cidade.');
-        $assinatura_nome  = agert_meta($post_id, 'assinatura_nome', 'Dr. João Carlos Silva Santos');
-        $assinatura_cargo = agert_meta($post_id, 'assinatura_cargo', 'Presidente da AGERT');
+        $nome             = agert_meta($post_id, 'nome_presidente');
+        $cargo_titulo     = agert_meta($post_id, 'cargo_titulo');
+        $mandato          = agert_meta($post_id, 'mandato_periodo');
+        $formacao         = agert_meta($post_id, 'formacao');
+        $especializacao   = agert_meta($post_id, 'especializacao');
+        $bio_breve        = agert_meta($post_id, 'bio_breve');
+        $experiencias     = agert_meta($post_id, 'experiencias');
+        $formacoes        = agert_meta($post_id, 'formacoes');
+        $mensagem         = agert_meta($post_id, 'mensagem');
+        $assinatura_nome  = agert_meta($post_id, 'assinatura_nome');
+        $assinatura_cargo = agert_meta($post_id, 'assinatura_cargo');
 
-        $has_content = $nome || $cargo_titulo || $mandato || $formacao || $especializacao || $bio_breve || !empty($experiencias) || !empty($formacoes) || $mensagem || $assinatura_nome || $assinatura_cargo;
+        $has_profile = $foto_id || $nome || $cargo_titulo || $mandato || $formacao || $especializacao;
+        $has_details = $bio_breve || !empty($experiencias) || !empty($formacoes) || $mensagem || $assinatura_nome || $assinatura_cargo;
 ?>
 <div class="container-lg py-5">
     <h1 class="text-center mb-5"><?php _e('Presidente', 'agert'); ?></h1>
     <div class="row g-4">
-        <div class="col-lg-4">
-            <div class="card-soft p-4 h-100 text-center">
-                <div class="mb-3">
-                    <?php if ($foto_id) : ?>
-                        <?php echo agert_img($foto_id, 'large', array('class' => 'photo', 'alt' => $nome ? sprintf(__('Foto de %s', 'agert'), $nome) : __('Foto do presidente', 'agert'))); ?>
-                    <?php else : ?>
-                        <div class="photo d-flex align-items-center justify-content-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="#6b7280" class="bi bi-person" viewBox="0 0 16 16" role="img" aria-label="<?php esc_attr_e('Sem foto', 'agert'); ?>">
-                                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                                <path fill-rule="evenodd" d="M14 14s-1-4-6-4-6 4-6 4 1 0 6 0 6 0 6 0z" />
-                            </svg>
-                        </div>
+        <?php if ($has_profile) : ?>
+            <div class="col-lg-4">
+                <div class="card-soft p-4 h-100 text-center">
+                    <div class="mb-3">
+                        <?php if ($foto_id) : ?>
+                            <?php echo agert_img($foto_id, 'large', array('class' => 'photo', 'alt' => $nome ? sprintf(__('Foto de %s', 'agert'), $nome) : __('Foto do presidente', 'agert'))); ?>
+                        <?php else : ?>
+                            <div class="photo d-flex align-items-center justify-content-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="#6b7280" class="bi bi-person" viewBox="0 0 16 16" role="img" aria-label="<?php esc_attr_e('Sem foto', 'agert'); ?>">
+                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                    <path fill-rule="evenodd" d="M14 14s-1-4-6-4-6 4-6 4 1 0 6 0 6 0 6 0z" />
+                                </svg>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                    <?php if ($nome) : ?>
+                        <p class="mb-1 fw-bold"><?php echo esc_html($nome); ?></p>
+                    <?php endif; ?>
+                    <?php if ($cargo_titulo) : ?>
+                        <p class="mb-3"><?php echo esc_html($cargo_titulo); ?></p>
+                    <?php endif; ?>
+                    <?php if ($mandato) : ?>
+                        <p><span class="label-muted"><?php _e('Mandato:', 'agert'); ?></span> <?php echo esc_html($mandato); ?></p>
+                    <?php endif; ?>
+                    <?php if ($formacao) : ?>
+                        <p><span class="label-muted"><?php _e('Formação:', 'agert'); ?></span> <?php echo esc_html($formacao); ?></p>
+                    <?php endif; ?>
+                    <?php if ($especializacao) : ?>
+                        <p><span class="label-muted"><?php _e('Especialização:', 'agert'); ?></span> <?php echo esc_html($especializacao); ?></p>
                     <?php endif; ?>
                 </div>
-                <?php if ($nome) : ?>
-                    <p class="mb-1 fw-bold"><?php echo esc_html($nome); ?></p>
-                <?php endif; ?>
-                <?php if ($cargo_titulo) : ?>
-                    <p class="mb-3"><?php echo esc_html($cargo_titulo); ?></p>
-                <?php endif; ?>
-                <?php if ($mandato) : ?>
-                    <p><span class="label-muted"><?php _e('Mandato:', 'agert'); ?></span> <?php echo esc_html($mandato); ?></p>
-                <?php endif; ?>
-                <?php if ($formacao) : ?>
-                    <p><span class="label-muted"><?php _e('Formação:', 'agert'); ?></span> <?php echo esc_html($formacao); ?></p>
-                <?php endif; ?>
-                <?php if ($especializacao) : ?>
-                    <p><span class="label-muted"><?php _e('Especialização:', 'agert'); ?></span> <?php echo esc_html($especializacao); ?></p>
-                <?php endif; ?>
             </div>
-        </div>
-        <div class="col-lg-8">
-            <?php if ($bio_breve) : ?>
+        <?php endif; ?>
+        <?php if ($has_details) : ?>
+            <div class="col-lg-8">
+                <?php if ($bio_breve) : ?>
                 <div class="card-soft p-4 mb-4">
                     <h2 class="card-title-sm mb-3"><i class="bi bi-person-circle me-2" aria-hidden="true"></i><?php _e('Biografia', 'agert'); ?></h2>
                     <p><?php echo esc_html($bio_breve); ?></p>
                 </div>
-            <?php endif; ?>
+                <?php endif; ?>
 
-            <?php if (!empty($experiencias) && is_array($experiencias)) : ?>
+                <?php if (!empty($experiencias) && is_array($experiencias)) : ?>
                 <div class="card-soft p-4 mb-4">
                     <h2 class="card-title-sm mb-3"><i class="bi bi-briefcase me-2" aria-hidden="true"></i><?php _e('Experiência Profissional', 'agert'); ?></h2>
                     <?php foreach ($experiencias as $exp) :
@@ -108,9 +102,9 @@ if (have_posts()) :
                         </div>
                     <?php endforeach; ?>
                 </div>
-            <?php endif; ?>
+                <?php endif; ?>
 
-            <?php if (!empty($formacoes) && is_array($formacoes)) : ?>
+                <?php if (!empty($formacoes) && is_array($formacoes)) : ?>
                 <div class="card-soft p-4 mb-4">
                     <h2 class="card-title-sm mb-3"><i class="bi bi-mortarboard me-2" aria-hidden="true"></i><?php _e('Formação Acadêmica', 'agert'); ?></h2>
                     <?php foreach ($formacoes as $form) :
@@ -130,9 +124,9 @@ if (have_posts()) :
                         </div>
                     <?php endforeach; ?>
                 </div>
-            <?php endif; ?>
+                <?php endif; ?>
 
-            <?php if ($mensagem) : ?>
+                <?php if ($mensagem) : ?>
                 <div class="card-soft p-4">
                     <h2 class="card-title-sm mb-3"><i class="bi bi-chat-quote me-2" aria-hidden="true"></i><?php _e('Mensagem do Presidente', 'agert'); ?></h2>
                     <blockquote class="presidente-quote mb-0"><?php echo wp_kses_post($mensagem); ?></blockquote>
@@ -143,8 +137,9 @@ if (have_posts()) :
                         </div>
                     <?php endif; ?>
                 </div>
-            <?php endif; ?>
-        </div>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
 <?php

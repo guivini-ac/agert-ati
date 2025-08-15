@@ -34,6 +34,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_nonce'])) {
         $error_message = __('Falha na validação do formulário.', 'agert');
     }
 }
+
+$contact_address = get_option('agert_contact_address', 'Rua dos Reguladores, 123 - Centro, Timon/MA');
+$contact_phone   = get_option('agert_contact_phone', '(99) 3212-3456');
+$contact_email   = get_option('agert_contact_email', 'contato@agert.timon.ma.gov.br');
+$contact_map_url = get_option('agert_contact_map_url', 'https://www.google.com/maps?q=Timon+MA&output=embed');
 ?>
 
 <div class="container py-5">
@@ -71,12 +76,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_nonce'])) {
 
         <div class="col-lg-6">
             <h2 class="h5 mb-3"><?php _e('Informações de Contato', 'agert'); ?></h2>
-            <p class="mb-2"><i class="bi bi-geo-alt me-1"></i>Rua dos Reguladores, 123 - Centro, Timon/MA</p>
-            <p class="mb-2"><i class="bi bi-telephone me-1"></i>(99) 3212-3456</p>
-            <p class="mb-4"><i class="bi bi-envelope me-1"></i>contato@agert.timon.ma.gov.br</p>
+            <p class="mb-2"><i class="bi bi-geo-alt me-1"></i><?php echo esc_html($contact_address); ?></p>
+            <p class="mb-2"><i class="bi bi-telephone me-1"></i><?php echo esc_html($contact_phone); ?></p>
+            <p class="mb-4"><i class="bi bi-envelope me-1"></i><?php echo esc_html($contact_email); ?></p>
 
             <div class="ratio ratio-16x9">
-                <iframe src="https://www.google.com/maps?q=Timon+MA&output=embed" allowfullscreen loading="lazy"></iframe>
+                <iframe src="<?php echo esc_url($contact_map_url); ?>" allowfullscreen loading="lazy"></iframe>
             </div>
         </div>
     </div>

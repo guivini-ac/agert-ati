@@ -204,6 +204,7 @@ require_once get_template_directory() . '/inc/reunioes-helpers.php';
 require_once get_template_directory() . '/inc/presidente-helpers.php';
 require_once get_template_directory() . '/inc/sobre-helpers.php';
 require_once get_template_directory() . '/inc/admin-reunioes.php';
+require_once get_template_directory() . '/inc/admin-presidente.php';
 require_once get_template_directory() . '/components/html.php';
 require_once get_template_directory() . '/inc/security.php';
 require_once get_template_directory() . '/inc/activation.php';
@@ -250,13 +251,58 @@ add_filter('nav_menu_css_class', function($classes, $item) {
 
 if (!function_exists('agert_menu_fallback')) {
     /**
-     * Fallback para o menu principal exibindo páginas básicas.
+     * Fallback para o menu principal com links fixos.
      */
     function agert_menu_fallback() {
-        echo '<ul class="menu">';
-        wp_list_pages([
-            'title_li' => '',
-        ]);
+        $items = [
+            [
+                'url'        => home_url('/'),
+                'label'      => __('Início', 'agert'),
+                'is_current' => is_front_page(),
+            ],
+            [
+                'url'        => agert_get_page_link('sobre-a-agert'),
+                'label'      => __('Sobre a AGERT', 'agert'),
+                'is_current' => is_page(['sobre-a-agert', 'sobre']),
+            ],
+            [
+                'url'        => agert_get_page_link('presidente'),
+                'label'      => __('Presidente', 'agert'),
+                'is_current' => is_page('presidente'),
+            ],
+            [
+                'url'        => get_post_type_archive_link('reuniao'),
+                'label'      => __('Reuniões', 'agert'),
+                'is_current' => is_post_type_archive('reuniao') || is_singular('reuniao'),
+            ],
+            [
+                'url'        => agert_get_page_link('contato'),
+                'label'      => __('Contato', 'agert'),
+                'is_current' => is_page('contato'),
+            ],
+        ];
+
+        echo '<ul class="menu" role="menubar">';
+        foreach ($items as $item) {
+            if (empty($item['url'])) {
+                continue;
+            }
+
+            $classes = ['menu-item'];
+            $aria_current = '';
+            if ($item['is_current']) {
+                $classes[]   = 'current-menu-item';
+                $aria_current = ' aria-current="page"';
+            }
+
+            printf(
+                '<li class="%1$s" role="none"><a href="%2$s"%3$s role="menuitem"><span>%4$s</span></a></li>',
+                esc_attr(implode(' ', $classes)),
+                esc_url($item['url']),
+                $aria_current,
+                esc_html($item['label'])
+            );
+        }
         echo '</ul>';
     }
 }

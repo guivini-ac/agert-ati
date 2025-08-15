@@ -15,7 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_meeting_nonce'
         $content = sanitize_textarea_field($_POST['meeting_content']);
         $data_hora = sanitize_text_field($_POST['data_hora']);
         $local = sanitize_text_field($_POST['local']);
-        $pauta = sanitize_textarea_field($_POST['pauta']);
+        $pauta = preg_split("/\r\n|\r|\n/", $_POST['pauta']);
+        $pauta = array_filter(array_map('sanitize_text_field', array_map('trim', $pauta)));
         $tipo_reuniao = sanitize_text_field($_POST['tipo_reuniao']);
         $video_url = isset($_POST['video_url']) ? esc_url_raw($_POST['video_url']) : '';
         
@@ -36,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_meeting_nonce'
                 if ($video_url) {
                     update_post_meta($meeting_id, '_video_url', $video_url);
                 }
+
                 
                 // Definir taxonomia se selecionada
                 if (!empty($tipo_reuniao)) {
