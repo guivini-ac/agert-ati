@@ -17,7 +17,7 @@
       <div class="site-header__bar">
         <div class="container">
           <div class="brand-wrap">
-            <a class="brand" href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php bloginfo('name'); ?>">
+            <a class="brand" href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php echo esc_attr( get_bloginfo('name') ); ?>">
               <?php if (has_custom_logo()) : ?>
                 <span class="brand__logo">
                   <?php the_custom_logo(); ?>
